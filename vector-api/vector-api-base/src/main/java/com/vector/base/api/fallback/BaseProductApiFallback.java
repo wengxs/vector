@@ -21,6 +21,11 @@ public class BaseProductApiFallback implements FallbackFactory<BaseProductApi> {
             public R<BaseProduct> get(Integer id) {
                 return R.fail("Base模块调用失败");
             }
+
+            @Override
+            public R<?> update(BaseProduct baseProduct) {
+                return R.fail("Base模块调用失败");
+            }
         };
     }
 }

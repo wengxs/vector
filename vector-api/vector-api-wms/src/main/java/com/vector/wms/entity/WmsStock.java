@@ -1,4 +1,4 @@
-package com.vector.base.entity;
+package com.vector.wms.entity;
 
 import com.vector.core.entity.BaseEntity;
 import lombok.Data;
@@ -10,11 +10,13 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class BaseProduct extends BaseEntity<Integer> {
+public class WmsStock extends BaseEntity<Integer> {
 
     /** 产品名称 */
-    private String productName;
+    private Integer productId;
 
-    private Integer stock;
+    private Integer usableQty;
+
+    private Integer lockedQty;
 
 }

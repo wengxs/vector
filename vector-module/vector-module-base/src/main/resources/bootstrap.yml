@@ -1,5 +1,6 @@
 server:
   port: 9051
+
 spring:
   application:
     name: base-service
@@ -23,3 +24,19 @@ spring:
     password: root
   jackson:
     time-zone: GMT+8
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
+
+seata:
+  tx-service-group: default_tx_group
+#  service:
+#    vgroup-mapping:
+#      ${seate.tx-service-group}: default
+  registry:
+    nacos:
+      server-addr: 127.0.0.1:8848
+  config:
+    nacos:
+      server-addr: 127.0.0.1:8848
