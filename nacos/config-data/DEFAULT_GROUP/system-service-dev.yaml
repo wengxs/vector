@@ -1,0 +1,4 @@
+security:
+  whitelist-paths:
+    - /remote/user/**
+    - /remote/user/menus/{id}
