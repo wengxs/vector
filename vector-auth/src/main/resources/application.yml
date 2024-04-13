@@ -1,0 +1,40 @@
+server:
+  port: 19999
+#  port: 9054
+spring:
+  application:
+    name: auth-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      server-addr: 127.0.0.1:8848
+#      config:
+#        server-addr: 127.0.0.1:8848
+#        file-extension: yml
+
+    openfeign:
+      circuitbreaker:
+        enabled: true
+
+  config:
+    import:
+      - nacos:application-${spring.profiles.active}.yaml
+      - nacos:common-redis-${spring.profiles.active}.yaml
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  pattern:
+    console: "%d [%thread] %-5level %logger - %msg%n"
+  level:
+    com.vector: debug

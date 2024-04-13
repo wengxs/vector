@@ -1,0 +1,25 @@
+server:
+  port: 18300
+
+spring:
+  application:
+    name: third-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+#      config:
+#        server-addr: 127.0.0.1:8848
+#        namespace: 2830814b-96ef-41ab-b60a-ab70de47e5e1
+#        extension-configs[0]:
+#          data-id: oss.yml
+#          group: DEFAULT_GROUP
+#          refresh: true
+alibaba:
+  cloud:
+    access-key: LTAI5t7ChBvJhp1tjiCK38s6
+    secret-key: ONseP2jZxQ1K1JY3juJFyu4yWd61Nw
+    oss:
+      endpoint: oss-cn-shenzhen.aliyuncs.com
+
+alibaba-oss-bucket: wengxs

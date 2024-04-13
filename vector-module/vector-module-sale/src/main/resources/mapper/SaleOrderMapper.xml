@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vector.sale.mapper.SaleOrderMapper">
+
+    <resultMap id="SaleOrderVoResult" type="com.vector.sale.vo.SaleOrderVo">
+        <result property="id" column="id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="orderNo" column="order_no"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="platform" column="platform"/>
+        <result property="shopName" column="shop_name"/>
+        <result property="buyer" column="buyer"/>
+        <result property="mobile" column="mobile"/>
+        <result property="areaCode" column="area_code"/>
+        <result property="area" column="area"/>
+        <result property="address" column="address"/>
+        <result property="orderRemake" column="order_remake"/>
+        <result property="amount" column="amount"/>
+        <result property="payTime" column="pay_time"/>
+        <result property="shipTime" column="ship_time"/>
+        <result property="signTime" column="sign_time"/>
+        <result property="finishTime" column="finish_time"/>
+        <result property="cancelTime" column="cancel_time"/>
+    </resultMap>
+
+    <sql id="selectSaleOrderVoSql">
+        select p.id, p.create_time, p.create_by, p.order_no, p.order_status, p.platform, p.shop_name,
+            p.buyer, p.mobile, p.area_code, p.area, p.address, p.order_remake, p.amount,
+            p.pay_time, p.ship_time, p.sign_time, p.finish_time, p.cancel_time
+        from sale_order p
+    </sql>
+
+    <select id="selectVoById" parameterType="Long"
+            resultMap="SaleOrderVoResult">
+        <include refid="selectSaleOrderVoSql"/>
+        where p.id=#{id}
+    </select>
+
+    <select id="selectVoPage" resultMap="SaleOrderVoResult"
+            parameterType="com.vector.sale.vo.SaleOrderVo">
+        <include refid="selectSaleOrderVoSql"/>
+        <where>
+            <if test="q.createBy != null and q.createBy != ''"> and p.create_by = #{q.createBy}</if>
+            <if test="q.orderNo != null and q.orderNo != ''"> and p.order_no = #{q.orderNo}</if>
+            <if test="q.orderStatus != null "> and p.order_status = #{q.orderStatus}</if>
+            <if test="q.platform != null "> and p.platform = #{q.platform}</if>
+            <if test="q.shopName != null and q.shopName != ''"> and p.shop_name = #{q.shopName}</if>
+            <if test="q.buyer != null and q.buyer != ''"> and p.buyer = #{q.buyer}</if>
+            <if test="q.mobile != null and q.mobile != ''"> and p.mobile = #{q.mobile}</if>
+            <if test="q.areaCode != null and q.areaCode != ''"> and p.area_code = #{q.areaCode}</if>
+            <if test="q.area != null and q.area != ''">
+                and exists(select 1 from info_area ia where ia.code=p.area_code and ia.full_name like concat('%', #{q.area}, '%'))
+            </if>
+            <if test="q.createBegin != null and q.createEnd != null">
+                and p.create_time between DATE_FORMAT(#{q.createBegin},'%Y-%m-%d 00:00:00') and DATE_FORMAT(#{q.createEnd},'%Y-%m-%d 23:59:59')
+            </if>
+            <if test="q.productId != null">
+                and exists(select 1 from sale_order_detail sod where sod.order_id=p.id and sod.product_id=#{q.productId})
+            </if>
+            <if test="q.productName != null and q.productName != ''">
+                and exists(select 1 from sale_order_detail sod left join info_product ip on ip.id=sod.product_id
+                where sod.order_id=p.id and ip.name like concat('%', #{q.productName}, '%'))
+            </if>
+        </where>
+        order by p.id desc
+    </select>
+
+</mapper>

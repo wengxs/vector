@@ -1,0 +1,7 @@
+package com.vector.info.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.vector.info.entity.InfoSupplier;
+
+public interface InfoSupplierService extends IService<InfoSupplier> {
+}
