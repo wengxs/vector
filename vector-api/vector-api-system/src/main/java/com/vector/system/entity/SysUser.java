@@ -34,4 +34,7 @@ public class SysUser extends BaseEntity<Long> {
     /** 帐号状态（0停用，1正常） */
     private Boolean enabled;
 
+    /** 部门ID */
+    private Long deptId;
+
 }

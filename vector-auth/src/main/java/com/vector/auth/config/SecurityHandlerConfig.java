@@ -1,8 +1,8 @@
 package com.vector.auth.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vector.common.core.constant.SecurityConstant;
 import com.vector.common.core.result.R;
-import com.vector.common.security.constant.SecurityConstant;
 import com.vector.common.security.domain.LoginUser;
 import com.vector.common.security.service.TokenService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,12 +10,9 @@ import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;

@@ -1,6 +1,6 @@
 package com.vector.common.security.util;
 
-import com.vector.common.security.constant.SecurityConstant;
+import com.vector.common.core.constant.SecurityConstant;
 import com.vector.common.security.domain.LoginUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -23,6 +23,9 @@ public class JwtUtils {
         claims.put(SecurityConstant.LOGIN_USER_KEY, loginUser.getToken());
         claims.put(SecurityConstant.TOKEN_INFO_CLIENT_ID, loginUser.getClientId());
         claims.put(SecurityConstant.TOKEN_INFO_USER_ID, loginUser.getUserId());
+        claims.put(SecurityConstant.TOKEN_INFO_DEPT_ID, loginUser.getDeptId());
+//        claims.put(SecurityConstant.TOKEN_INFO_DATA_SCOPE, loginUser.getDataScope());
+        claims.put(SecurityConstant.TOKEN_INFO_AUTHORITIES, loginUser.getAuthorities());
         return Jwts.builder()
                 .claims(claims)
                 .subject(loginUser.getUsername())

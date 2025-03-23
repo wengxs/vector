@@ -27,7 +27,7 @@ public class SecurityUtils {
     }
 
     public static String getUsername() {
-        return getTokenInfo().getString(SecurityConstant.TOKEN_USERNAME);
+        return getTokenInfo().getString(SecurityConstant.TOKEN_INFO_USERNAME);
     }
 
     public static Long getClientId() {

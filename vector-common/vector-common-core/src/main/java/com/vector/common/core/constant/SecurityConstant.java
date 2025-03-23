@@ -1,9 +1,5 @@
 package com.vector.common.core.constant;
 
-/**
- * Created by Zorg
- * 2020/5/23 20:53
- */
 public interface SecurityConstant {
 
     String LOGIN_USER_KEY = "login_user_key";
@@ -16,19 +12,27 @@ public interface SecurityConstant {
 
     String BASIC_PREFIX = "Basic ";
 
-    String TOKEN_SECRET = "vector";
+    long TOKEN_EXPIRE_IN = 3600L;
+
+    String TOKEN_SECRET = "b0d51c58c8b9c1f458fadf16c7d375630ef51da4df81915893b05c0fa4ed8bc6";
 
     String TOKEN_INFO = "TokenInfo";
 
-    String TOKEN_USERNAME = "user_name";
+    String TOKEN_INFO_CLIENT_ID = "clientId";
 
-    String TOKEN_INFO_USER_ID = "user_id";
+    String TOKEN_INFO_USERNAME = "username";
 
-    String TOKEN_INFO_CLIENT_ID = "client_id";
+    String TOKEN_INFO_USER_ID = "userId";
+
+    String TOKEN_INFO_DEPT_ID = "deptId";
+
+    String TOKEN_INFO_DATA_SCOPE = "dataScope";
+
+    String TOKEN_INFO_AUTHORITIES = "authorities";
 
 
     /** JWT存储权限前缀 */
-    String AUTHORITY_PREFIX = "ROLE_";
+    String ROLE_PREFIX = "ROLE_";
 
     /** JWT存储权限属性 */
     String JWT_AUTHORITIES_KEY = "authorities";
@@ -40,4 +44,7 @@ public interface SecurityConstant {
     String ADMIN_PERMISSIONS = "*:*:*";
 
     String ADMIN_ROLES = "ROLE_*";
+
+    /** 管理员角色编码 */
+    String ROLE_KEY_ADMIN = "admin";
 }

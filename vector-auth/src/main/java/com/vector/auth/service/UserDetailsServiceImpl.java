@@ -1,9 +1,9 @@
 package com.vector.auth.service;
 
 import com.alibaba.fastjson2.JSON;
+import com.vector.common.core.constant.SecurityConstant;
 import com.vector.common.core.result.R;
 import com.vector.common.core.util.BizAssert;
-import com.vector.common.security.constant.SecurityConstant;
 import com.vector.common.security.domain.LoginUser;
 import com.vector.system.api.SysUserApi;
 import com.vector.system.entity.SysMenu;
@@ -57,6 +57,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         loginUser.setUserId(user.getId());
         loginUser.setUsername(user.getUsername());
         loginUser.setPassword(user.getPassword());
+        loginUser.setDeptId(user.getDeptId());
         loginUser.setEnabled(user.getEnabled());
         loginUser.setPermissions(permissions);
 
