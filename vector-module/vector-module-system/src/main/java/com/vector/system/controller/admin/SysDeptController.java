@@ -81,7 +81,7 @@ public class SysDeptController {
     @PutMapping
     @PreAuthorize("@ss.hasAuthority('sys:dept:edit')")
     public R<?> update(@RequestBody SysDeptDTO deptDTO) {
-        // TODO 更新下级的祖级
+        // 更新下级的祖级
         SysDept sysDept = new SysDept();
         BeanUtils.copyProperties(deptDTO, sysDept);
         sysDeptService.updateById(sysDept);

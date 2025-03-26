@@ -93,7 +93,7 @@ public class TokenConfig {
                     Optional.ofNullable(authenticationToken.getPrincipal()).ifPresent(principal -> {
                         if (principal instanceof LoginUser loginUser) {
                             context.getClaims().claims(claims -> {
-                                claims.put("jti", UUID.randomUUID().toString()); // TODO 当前版本没有自动生成jti，需要手动设置
+                                claims.put("jti", UUID.randomUUID().toString()); // 当前版本没有自动生成jti，需要手动设置
                                 claims.put(SecurityConstant.TOKEN_INFO_USER_ID, loginUser.getUserId());
                                 claims.put(SecurityConstant.TOKEN_INFO_USERNAME, loginUser.getUsername());
                                 claims.put(SecurityConstant.TOKEN_INFO_DEPT_ID, loginUser.getDeptId());
