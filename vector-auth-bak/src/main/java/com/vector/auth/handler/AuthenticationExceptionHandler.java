@@ -15,8 +15,8 @@ public class AuthenticationExceptionHandler {
 
     @ExceptionHandler(InvalidGrantException.class)
     public R<?> invalidGrantException(InvalidGrantException exception) {
-        log.error("用户名或密码错误：{}", exception.getMessage(), exception);
-        return R.fail("用户名或密码错误");
+        log.error("用户名或密码错误1：{}", exception.getMessage(), exception);
+        return R.fail("用户名或密码错误1");
     }
 
     @ExceptionHandler(AuthenticationException.class)

@@ -1,15 +1,18 @@
 package com.vector.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.vector.common.core.util.BizAssert;
 import com.vector.system.entity.SysRole;
 import com.vector.system.entity.SysRoleMenu;
 import com.vector.system.entity.SysUserRole;
 import com.vector.system.mapper.SysRoleMapper;
+import com.vector.system.query.SysRoleQuery;
 import com.vector.system.service.SysRoleMenuService;
 import com.vector.system.service.SysRoleService;
 import com.vector.system.service.SysUserRoleService;
+import com.vector.system.vo.SysRoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author wengxs
+ */
 @Service
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements SysRoleService {
 
@@ -26,11 +32,22 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     private SysUserRoleService sysUserRoleService;
 
     @Override
-    public boolean exists(String name) {
-        return baseMapper.selectOneByName(name) != null;
+    public SysRoleVO getVOById(Long id) {
+        return baseMapper.selectVOById(id);
     }
 
     @Override
+    public IPage<SysRoleVO> pageVO(IPage<?> page, SysRoleQuery query) {
+        return baseMapper.selectVOPage(page, query);
+    }
+
+    @Override
+    public boolean exists(String roleName) {
+        return baseMapper.selectOneByRoleName(roleName) != null;
+    }
+
+    @Override
+    @Transactional
     public void saveOrUpdate(SysRole sysRole, List<Long> menuIds) {
         if (sysRole.getId() == null) {
             baseMapper.insert(sysRole);

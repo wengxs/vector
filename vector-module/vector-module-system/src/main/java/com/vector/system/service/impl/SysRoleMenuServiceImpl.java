@@ -6,6 +6,15 @@ import com.vector.system.mapper.SysRoleMenuMapper;
 import com.vector.system.service.SysRoleMenuService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+/**
+ * @author wengxs
+ */
 @Service
 public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRoleMenu> implements SysRoleMenuService {
+    @Override
+    public List<Long> listAllMenuIds() {
+        return baseMapper.selectAllMenuIds();
+    }
 }

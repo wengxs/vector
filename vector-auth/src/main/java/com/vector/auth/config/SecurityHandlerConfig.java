@@ -1,21 +1,35 @@
 package com.vector.auth.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vector.common.core.constant.SecurityConstant;
+import com.nimbusds.jose.JWSObject;
 import com.vector.common.core.result.R;
-import com.vector.common.security.domain.LoginUser;
-import com.vector.common.security.service.TokenService;
+import com.vector.common.security.constant.SecurityConstant;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.OAuth2Error;
+import org.springframework.security.oauth2.core.OAuth2RefreshToken;
+import org.springframework.security.oauth2.core.endpoint.DefaultOAuth2AccessTokenResponseMapConverter;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
+import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AccessTokenAuthenticationToken;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+
+import java.text.ParseException;
+import java.time.temporal.ChronoUnit;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Security认证处理器
@@ -30,7 +44,7 @@ public class SecurityHandlerConfig {
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
-    private TokenService tokenService;
+    private StringRedisTemplate redisTemplate;
 
     /**
      * 登录成功
@@ -39,12 +53,31 @@ public class SecurityHandlerConfig {
     public AuthenticationSuccessHandler loginSuccessHandler() {
         return (request, response, authentication) -> {
             log.info("登录成功");
-            log.info("onAuthenticationSuccess().authentication={}", objectMapper.writeValueAsString(authentication));
-            log.info("onAuthenticationSuccess().getPrincipal={}", objectMapper.writeValueAsString(authentication.getPrincipal()));
             // TODO 保存用户登录信息
-            LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-            response.setContentType(ContentType.APPLICATION_JSON.toString());
-            response.getWriter().write(objectMapper.writeValueAsString(R.ok(tokenService.createToken(loginUser))));
+            if (authentication instanceof OAuth2AccessTokenAuthenticationToken accessTokenAuthenticationToken) {
+                Converter<OAuth2AccessTokenResponse, Map<String, Object>> converter =
+                        new DefaultOAuth2AccessTokenResponseMapConverter();
+                OAuth2AccessToken accessToken = accessTokenAuthenticationToken.getAccessToken();
+                OAuth2RefreshToken refreshToken = accessTokenAuthenticationToken.getRefreshToken();
+                Map<String, Object> additionalParameters = accessTokenAuthenticationToken.getAdditionalParameters();
+                OAuth2AccessTokenResponse.Builder builder = OAuth2AccessTokenResponse
+                        .withToken(accessToken.getTokenValue())
+                        .tokenType(accessToken.getTokenType());
+                if (accessToken.getIssuedAt() != null && accessToken.getExpiresAt() != null) {
+                    builder.expiresIn(ChronoUnit.SECONDS.between(accessToken.getIssuedAt(), accessToken.getExpiresAt()));
+                }
+                if (refreshToken != null) {
+                    builder.refreshToken(refreshToken.getTokenValue());
+                }
+                if (additionalParameters != null && !additionalParameters.isEmpty()) {
+                    builder.additionalParameters(additionalParameters);
+                }
+                OAuth2AccessTokenResponse accessTokenResponse = builder.build();
+
+                Map<String, Object> accessTokenResponseMap = converter.convert(accessTokenResponse);
+                response.setContentType(ContentType.APPLICATION_JSON.toString());
+                response.getWriter().write(objectMapper.writeValueAsString(R.ok(accessTokenResponseMap)));
+            }
         };
     }
 
@@ -57,7 +90,11 @@ public class SecurityHandlerConfig {
             log.info("登录失败");
 //                response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setContentType(ContentType.APPLICATION_JSON.toString());
-            if (exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException) {
+            if (exception instanceof OAuth2AuthenticationException authenticationException) {
+                OAuth2Error error = authenticationException.getError();
+                log.error("认证失败：{}", error.getErrorCode());
+                response.getWriter().write(objectMapper.writeValueAsString(R.fail(error.getErrorCode())));
+            } else if (exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException) {
                 log.error("用户不存在：{}", exception.getMessage());
                 response.getWriter().write(objectMapper.writeValueAsString(R.fail("用户名或密码有误")));
             } else if (exception instanceof LockedException) {
@@ -73,7 +110,7 @@ public class SecurityHandlerConfig {
                 log.error("账号已禁用：{}", exception.getMessage());
                 response.getWriter().write(objectMapper.writeValueAsString(R.fail("账号已禁用")));
             } else {
-                log.error("登录失败：{}", exception.getMessage());
+                log.error("登录失败：{}", exception.getMessage(), exception);
                 response.getWriter().write(objectMapper.writeValueAsString(R.fail("登录失败")));
             }
         };
@@ -85,10 +122,29 @@ public class SecurityHandlerConfig {
     @Bean
     public LogoutSuccessHandler logoutSuccessHandler() {
         return (request, response, authentication) -> {
-            String authHeader = request.getHeader(SecurityConstant.TOKEN_HEADER);
-            if (authHeader != null && authHeader.startsWith(SecurityConstant.TOKEN_PREFIX)) {
-                String authToken = authHeader.substring(SecurityConstant.TOKEN_PREFIX.length());
-                tokenService.deleteToken(authToken);
+            String authorization = request.getHeader(SecurityConstant.TOKEN_HEADER);
+            if (StringUtils.isNotBlank(authorization)
+                    && StringUtils.startsWithIgnoreCase(authorization, SecurityConstant.TOKEN_PREFIX)) {
+                String token = authorization.substring(SecurityConstant.TOKEN_PREFIX.length());
+                try {
+                    JWSObject jwt = JWSObject.parse(token);
+                    Map<String, Object> payload = jwt.getPayload().toJSONObject();
+                    String jti = (String) payload.get("jti");
+                    Long expireTime = (Long) payload.get("exp");
+                    if (expireTime == null) {
+                        // token 永不过期则永久加入黑名单
+                        redisTemplate.opsForValue().set(SecurityConstant.TOKEN_BLACKLIST_PREFIX + jti, "");
+                    } else {
+                        long currentTime = System.currentTimeMillis() / 1000;
+                        if (currentTime < expireTime) {
+                            long remainingTime = expireTime - currentTime;
+                            redisTemplate.opsForValue().set(SecurityConstant.TOKEN_BLACKLIST_PREFIX + jti, "",
+                                    remainingTime, TimeUnit.SECONDS);
+                        }
+                    }
+                } catch (ParseException e) {
+                    log.error("退出登录出错：{}", e.getMessage());
+                }
             }
             log.info("用户退出登录成功");
             SecurityContextHolder.clearContext();
@@ -96,32 +152,4 @@ public class SecurityHandlerConfig {
             response.getWriter().write(objectMapper.writeValueAsString(R.ok()));
         };
     }
-
-//    /**
-//     * 未登录
-//     */
-//    @Bean
-//    public AuthenticationEntryPoint authenticationEntryPoint() {
-//        return (request, response, authException) -> {
-//            log.info("未登录：{}", authException.getMessage());
-//            response.setStatus(HttpStatus.OK.value());
-//            response.setContentType(ContentType.APPLICATION_JSON.toString());
-//            response.getWriter().write(objectMapper.writeValueAsString(
-//                    R.fail(HttpStatus.UNAUTHORIZED.value(), "未登录")
-//            ));
-//        };
-//    }
-//
-//    @Bean
-//    public AccessDeniedHandler accessDeniedHandler() {
-//        return (request, response, accessDeniedException) -> {
-//            log.info("没有权限访问：{}", accessDeniedException.getMessage());
-//            response.setStatus(HttpStatus.OK.value());
-//            response.setContentType(ContentType.APPLICATION_JSON.toString());
-//            response.getWriter().write(objectMapper.writeValueAsString(
-//                    R.fail(HttpStatus.FORBIDDEN.value(), "没有权限访问")
-//            ));
-//        };
-//    }
-
 }

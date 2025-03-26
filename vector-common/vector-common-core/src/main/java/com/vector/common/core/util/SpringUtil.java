@@ -1,20 +1,16 @@
 package com.vector.common.core.util;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-
 /**
  * 获取容器Bean工具类
  * Ps: 该类可以在非SpringIoC管理的普通类中获取Spring管理的Bean实例
- * Created by Zorg
- * 2020-02-22 11:02
+ * @author Zorg
  */
 @Component
 public class SpringUtil implements ApplicationContextAware {
@@ -33,9 +29,7 @@ public class SpringUtil implements ApplicationContextAware {
      * @return
      */
     public static <T> Optional<T> getBean(Class<T> type) {
-        if (ctx == null)
-            return Optional.empty();
-        return Optional.of(ctx.getBean(type));
+        return ctx == null ? Optional.empty() : Optional.of(ctx.getBean(type));
     }
 
     /**
@@ -46,9 +40,6 @@ public class SpringUtil implements ApplicationContextAware {
      * @return
      */
     public static <T> Optional<T> getBean(String name, Class<T> type) {
-        if (ctx == null)
-            return Optional.empty();
-        return Optional.of(ctx.getBean(name, type));
+        return ctx == null ? Optional.empty() : Optional.of(ctx.getBean(name, type));
     }
-
 }

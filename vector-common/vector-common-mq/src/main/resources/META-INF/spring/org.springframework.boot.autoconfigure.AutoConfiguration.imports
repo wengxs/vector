@@ -1,0 +1,2 @@
+com.vector.common.mq.config.RabbitMqConfig
+com.vector.common.mq.config.RabbitMqRetryConfig

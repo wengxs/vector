@@ -16,6 +16,10 @@
             <groupId>com.vector</groupId>
             <artifactId>vector-common-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vector</groupId>
+            <artifactId>vector-common-security</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

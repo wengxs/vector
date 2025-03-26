@@ -1,16 +1,18 @@
 package com.vector.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.vector.common.core.util.BizAssert;
-import com.vector.system.entity.SysMenu;
 import com.vector.system.entity.SysRole;
 import com.vector.system.entity.SysUser;
 import com.vector.system.entity.SysUserRole;
 import com.vector.system.mapper.SysUserMapper;
+import com.vector.system.query.SysUserQuery;
 import com.vector.system.service.SysRoleService;
 import com.vector.system.service.SysUserRoleService;
 import com.vector.system.service.SysUserService;
+import com.vector.system.vo.SysUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by Zorg
- * 2020/5/16 01:25
+ * @author wengxs
  */
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
@@ -29,6 +30,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     private SysRoleService sysRoleService;
     @Autowired
     private SysUserRoleService sysUserRoleService;
+
+    @Override
+    public SysUserVO getVOById(Long id) {
+        return baseMapper.selectVOById(id);
+    }
+
+    @Override
+    public IPage<SysUserVO> pageVO(IPage<?> page, SysUserQuery query) {
+        return baseMapper.selectVOPage(page, query);
+    }
 
     @Override
     public void updatePassword(String username, String password) {
@@ -69,5 +80,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             baseMapper.deleteById(id);
             sysUserRoleService.remove(new LambdaQueryWrapper<SysUserRole>().eq(SysUserRole::getUserId, id));
         }
+    }
+
+    @Override
+    public List<Long> listIdsByUserId(Long userId) {
+        return baseMapper.selectIdsByUserId(userId);
     }
 }

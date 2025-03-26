@@ -2,15 +2,13 @@ package com.vector.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.vector.common.core.entity.BaseEntity;
+import com.vector.common.core.enums.DataScope;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by Zorg
- * 2020/5/15 23:55
+ * 系统角色
+ * @author wengxs
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -18,10 +16,13 @@ import java.util.List;
 public class SysRole extends BaseEntity<Long> {
 
     /** 角色名称 */
-    private String name;
+    private String roleName;
 
     /** 角色标识 */
     private String roleKey;
+
+    /** 数据权限 */
+    private DataScope dataScope;
 
     /** 角色描述 */
     private String description;

@@ -1,0 +1,2 @@
+com.vector.common.mybatis.config.MyBatisPlusConfig
+com.vector.common.mybatis.handler.MyBatisMetaObjectHandler

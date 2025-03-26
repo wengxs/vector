@@ -9,8 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 /**
- * Created by Zorg
- * 2020/5/16 14:17
+ * @author wengxs
  */
 @Mapper
 public interface SysMenuMapper extends BaseMapper<SysMenu> {

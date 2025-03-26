@@ -1,16 +1,14 @@
 package com.vector.system.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.vector.common.core.entity.BaseEntity;
+import com.vector.system.enums.SysMenuType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
 /**
- * Created by Zorg
- * 2020/5/15 23:55
+ * 系统菜单
+ * @author wengxs
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -18,7 +16,7 @@ import java.util.List;
 public class SysMenu extends BaseEntity<Long> {
 
     /** 菜单名称 */
-    private String name;
+    private String menuName;
     /** 父级id */
     private Long parentId;
     /** 路径 */
@@ -26,15 +24,14 @@ public class SysMenu extends BaseEntity<Long> {
     /** 组件 */
     private String component;
     /** 类型 */
-    private Integer type;
+    private SysMenuType type;
     /** 权限 */
     private String permission;
     /** 图标 */
     private String icon;
     /** 排序 */
     private Integer sort;
-
-    @TableField(exist = false)
-    private List<String> subPermissions;
+    /** 隐藏菜单 */
+    private Boolean hidden;
 
 }

@@ -5,16 +5,17 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * Created by Zorg
- * 2020/6/7 04:48
+ * @author wengxs
  */
 @Data
 public class MenuTree {
 
+    /** 菜单ID */
     private Long id;
 
-    private String name;
+    /** 菜单名称 */
+    private String menuName;
 
+    /** 子菜单 */
     private List<MenuTree> children;
-
 }

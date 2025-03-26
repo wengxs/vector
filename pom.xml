@@ -18,7 +18,7 @@
     </modules>
 
     <properties>
-        <spring-boot.version>3.1.10</spring-boot.version>
+        <spring-boot.version>3.1.12</spring-boot.version>
         <!--<spring-boot.version>3.0.2</spring-boot.version>-->
         <spring-cloud.version>2022.0.5</spring-cloud.version>
         <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
@@ -81,6 +81,11 @@
             <dependency>
                 <groupId>com.vector</groupId>
                 <artifactId>vector-common-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vector</groupId>
+                <artifactId>vector-common-mybatis</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

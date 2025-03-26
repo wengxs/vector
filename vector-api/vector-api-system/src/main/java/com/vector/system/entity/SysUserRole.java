@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Created by Zorg
- * 2020/6/2 17:44
+ * 用户角色
+ * @author wengxs
  */
 @Data
 @TableName("sys_user_role")

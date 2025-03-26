@@ -5,8 +5,7 @@ import com.vector.system.entity.SysUserRole;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * Created by Zorg
- * 2020/6/2 17:47
+ * @author wengxs
  */
 @Mapper
 public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {

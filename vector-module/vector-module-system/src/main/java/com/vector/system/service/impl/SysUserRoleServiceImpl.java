@@ -6,6 +6,9 @@ import com.vector.system.mapper.SysUserRoleMapper;
 import com.vector.system.service.SysUserRoleService;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author wengxs
+ */
 @Service
 public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements SysUserRoleService {
 }

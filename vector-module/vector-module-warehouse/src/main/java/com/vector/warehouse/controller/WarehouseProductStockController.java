@@ -6,7 +6,6 @@ import com.vector.common.core.result.PageResult;
 import com.vector.common.core.result.R;
 import com.vector.warehouse.form.WarehouseProductStockLockForm;
 import com.vector.warehouse.service.WarehouseProductStockService;
-import com.vector.warehouse.service.WarehouseProductStockService;
 import com.vector.warehouse.vo.WarehouseProductStockVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

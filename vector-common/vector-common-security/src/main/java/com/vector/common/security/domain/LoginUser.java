@@ -2,7 +2,6 @@ package com.vector.common.security.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,9 +13,6 @@ import java.util.stream.Collectors;
 
 @Data
 public class LoginUser implements UserDetails {
-
-    /** 客户端ID */
-    private String clientId;
 
     /** 用户ID */
     private Long userId;

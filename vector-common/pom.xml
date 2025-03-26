@@ -17,6 +17,7 @@
         <module>vector-common-web</module>
         <module>vector-common-mq</module>
         <module>vector-common-security</module>
+        <module>vector-common-mybatis</module>
     </modules>
 
 </project>
