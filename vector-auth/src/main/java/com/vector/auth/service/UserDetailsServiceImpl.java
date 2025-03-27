@@ -1,9 +1,9 @@
 package com.vector.auth.service;
 
 import com.alibaba.fastjson2.JSON;
+import com.vector.auth.model.LoginUser;
 import com.vector.common.core.result.R;
 import com.vector.common.core.util.BizAssert;
-import com.vector.common.security.domain.LoginUser;
 import com.vector.system.api.SysUserApi;
 import com.vector.system.dto.UserAuthInfo;
 import lombok.extern.slf4j.Slf4j;

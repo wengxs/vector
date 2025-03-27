@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vector.system.mapper.SysRoleMapper">
+
+    <resultMap id="SysRoleVOResult" type="com.vector.system.pojo.vo.SysRoleVO">
+        <result property="id" column="id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleKey" column="role_key"/>
+        <result property="dataScope" column="data_scope"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+    <sql id="selectSysRoleVOSql">
+        SELECT p.id, p.create_time, p.create_by, p.role_name, p.role_key, p.data_scope, p.description
+        FROM sys_role p
+    </sql>
+
+    <select id="selectVOById" parameterType="Long"
+            resultMap="SysRoleVOResult">
+        <include refid="selectSysRoleVOSql"/>
+        WHERE p.id=#{id}
+    </select>
+
+    <select id="selectVOPage" resultMap="SysRoleVOResult"
+            parameterType="com.vector.system.pojo.query.SysRoleQuery">
+        <include refid="selectSysRoleVOSql"/>
+        <where>
+            <if test="q.createBegin != null and q.createEnd != null">
+                AND p.create_time BETWEEN DATE_FORMAT(#{q.createBegin},'%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{q.createEnd},'%Y-%m-%d 23:59:59')
+            </if>
+            <if test="q.roleName != null and q.roleName != ''"> AND p.role_name LIKE concat('%', #{q.roleName}, '%')</if>
+            <if test="q.roleKey != null and q.roleKey != ''"> AND p.role_key = #{q.roleKey}</if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,6 +1,6 @@
 package com.vector.common.security.util;
 
-import com.vector.common.security.constant.SecurityConstant;
+import com.vector.common.core.constant.SecurityConstant;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;

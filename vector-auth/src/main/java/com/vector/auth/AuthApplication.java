@@ -1,21 +1,17 @@
 package com.vector.auth;
 
+import com.vector.system.api.SysUserApi;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.context.annotation.ComponentScan;
-//import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 /**
- * @author Zorg
- * @date 2022/3/26
+ * @author Wengxs
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "com.vector.*.api")
-//@EnableResourceServer
-@ComponentScan(basePackages = "com.vector")
+@EnableFeignClients(basePackageClasses = { SysUserApi.class })
 public class AuthApplication {
 
     public static void main(String[] args) {

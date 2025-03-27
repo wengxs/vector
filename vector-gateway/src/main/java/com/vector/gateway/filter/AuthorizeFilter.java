@@ -1,6 +1,7 @@
 package com.vector.gateway.filter;
 
 import com.nimbusds.jose.JWSObject;
+import com.vector.common.core.constant.SecurityConstant;
 import com.vector.common.core.result.R;
 import com.vector.gateway.util.WebUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -26,15 +27,15 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
-    private static final String BEARER_PREFIX = "Bearer ";
-    private static final String TOKEN_BLACKLIST_PREFIX = "token:blacklist:";
+    private static final String BEARER_PREFIX = SecurityConstant.TOKEN_PREFIX;
+    private static final String TOKEN_BLACKLIST_PREFIX = SecurityConstant.TOKEN_BLACKLIST_PREFIX;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        log.info("AuthorizeFilter.filter()校验Token有效性");
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
         String authorization = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+        log.info("AuthorizeFilter.filter()校验Token有效性：{}", authorization);
         if (StringUtils.isBlank(authorization) || !StringUtils.startsWithIgnoreCase(authorization, BEARER_PREFIX)) {
             return chain.filter(exchange);
         }

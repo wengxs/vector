@@ -1,8 +1,8 @@
 package com.vector.common.security.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vector.common.core.constant.SecurityConstant;
 import com.vector.common.core.result.R;
-import com.vector.common.security.constant.SecurityConstant;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

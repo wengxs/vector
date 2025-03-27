@@ -2,8 +2,8 @@ package com.vector.auth.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.JWSObject;
+import com.vector.common.core.constant.SecurityConstant;
 import com.vector.common.core.result.R;
-import com.vector.common.security.constant.SecurityConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.entity.ContentType;

@@ -11,6 +11,7 @@
 
     <artifactId>vector-api</artifactId>
     <packaging>pom</packaging>
+
     <modules>
         <module>vector-api-system</module>
         <module>vector-api-info</module>
@@ -18,8 +19,4 @@
         <module>vector-api-warehouse</module>
         <module>vector-api-sale</module>
     </modules>
-
-
-
-
 </project>

@@ -15,6 +15,7 @@
         <module>vector-gateway</module>
         <module>vector-auth</module>
         <module>vector-third</module>
+        <module>vector-system</module>
     </modules>
 
     <properties>
@@ -103,8 +104,6 @@
                 <artifactId>vector-common-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
-
 
             <!-- spring boot 依赖 -->
             <dependency>

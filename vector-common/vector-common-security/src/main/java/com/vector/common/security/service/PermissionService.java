@@ -1,6 +1,6 @@
 package com.vector.common.security.service;
 
-import com.vector.common.security.constant.SecurityConstant;
+import com.vector.common.core.constant.SecurityConstant;
 import com.vector.common.security.util.SecurityUtils;
 import org.springframework.stereotype.Service;
 

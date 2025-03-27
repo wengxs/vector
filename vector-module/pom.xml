@@ -12,7 +12,7 @@
     <artifactId>vector-module</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>vector-module-system</module>
+        <!--<module>vector-module-system</module>-->
         <module>vector-module-info</module>
         <module>vector-module-purchase</module>
         <module>vector-module-warehouse</module>

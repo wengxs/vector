@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.vector</groupId>
-            <artifactId>vector-common-redis</artifactId>
+            <artifactId>vector-common-core</artifactId>
         </dependency>
 
         <dependency>
