@@ -17,6 +17,7 @@
         <module>vector-third</module>
         <module>vector-system</module>
         <module>vector-app</module>
+        <module>vector-code-generation</module>
     </modules>
 
     <properties>

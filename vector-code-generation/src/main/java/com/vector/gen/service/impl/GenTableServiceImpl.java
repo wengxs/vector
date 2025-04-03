@@ -1,16 +1,16 @@
-package com.vector.system.service.impl;
+package com.vector.gen.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.vector.common.security.util.SecurityUtils;
-import com.vector.system.constant.GenConstant;
-import com.vector.system.mapper.GenTableMapper;
-import com.vector.system.pojo.entity.GenTable;
-import com.vector.system.pojo.entity.GenTableField;
-import com.vector.system.service.GenTableFieldService;
-import com.vector.system.service.GenTableService;
-import com.vector.system.util.VelocityUtil;
+import com.vector.gen.constant.GenConstant;
+import com.vector.gen.entity.GenTable;
+import com.vector.gen.entity.GenTableField;
+import com.vector.gen.mapper.GenTableMapper;
+import com.vector.gen.service.GenTableFieldService;
+import com.vector.gen.service.GenTableService;
+import com.vector.gen.util.VelocityUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -37,7 +37,7 @@ public class GenTableServiceImpl extends ServiceImpl<GenTableMapper, GenTable> i
         GenTable table = baseMapper.selectById(id);
 
         List<GenTableField> tableFields = genTableFieldService.list(new LambdaQueryWrapper<GenTableField>()
-                .eq( GenTableField::getTableId, id)
+                .eq(GenTableField::getTableId, id)
                 .orderByAsc(GenTableField::getSort)
         );
 

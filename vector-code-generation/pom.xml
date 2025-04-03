@@ -9,14 +9,11 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>vector-system</artifactId>
+    <description>代码生成模块</description>
+    <artifactId>vector-code-generation</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
-        <dependency>
-            <groupId>com.vector</groupId>
-            <artifactId>vector-api-system</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.vector</groupId>
             <artifactId>vector-common-web</artifactId>
@@ -24,10 +21,6 @@
         <dependency>
             <groupId>com.vector</groupId>
             <artifactId>vector-common-mybatis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.vector</groupId>
-            <artifactId>vector-common-redis</artifactId>
         </dependency>
         <dependency>
             <groupId>com.vector</groupId>
@@ -42,5 +35,12 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+
+        <!--velocity代码生成使用模板 -->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+        </dependency>
     </dependencies>
+
 </project>

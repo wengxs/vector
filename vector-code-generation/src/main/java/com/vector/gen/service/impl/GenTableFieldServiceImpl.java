@@ -1,9 +1,9 @@
-package com.vector.system.service.impl;
+package com.vector.gen.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.vector.system.mapper.GenTableFieldMapper;
-import com.vector.system.pojo.entity.GenTableField;
-import com.vector.system.service.GenTableFieldService;
+import com.vector.gen.entity.GenTableField;
+import com.vector.gen.mapper.GenTableFieldMapper;
+import com.vector.gen.service.GenTableFieldService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
