@@ -21,6 +21,10 @@ public class SecurityUtils {
         return tokenAttributes;
     }
 
+    public static String getClientId() {
+        return MapUtils.getString(getTokenAttributes(), SecurityConstant.TOKEN_INFO_CLIENT_ID);
+    }
+
     public static Long getUserId() {
         return MapUtils.getLong(getTokenAttributes(), SecurityConstant.TOKEN_INFO_USER_ID);
     }
@@ -46,6 +50,10 @@ public class SecurityUtils {
                     .collect(Collectors.collectingAndThen(Collectors.toSet(), Collections::unmodifiableSet));
         }
         return roles;
+    }
+
+    public static boolean isAdminSystem() {
+        return SecurityConstant.CLIENT_ID_SYSTEM.equals(getClientId());
     }
 
     public static boolean isAdmin() {

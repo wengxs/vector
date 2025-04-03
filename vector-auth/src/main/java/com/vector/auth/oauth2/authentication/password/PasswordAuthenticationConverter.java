@@ -1,6 +1,7 @@
 package com.vector.auth.oauth2.authentication.password;
 
 import com.vector.auth.oauth2.OAuth2EndpointUtils;
+import com.vector.auth.oauth2.authentication.CustomAuthorizationGrantType;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +24,7 @@ public class PasswordAuthenticationConverter implements AuthenticationConverter 
 
         // grant_type (REQUIRED)
         String grantType = parameters.getFirst(OAuth2ParameterNames.GRANT_TYPE);
-        if (!PasswordAuthenticationToken.PASSWORD.getValue().equals(grantType)) {
+        if (!CustomAuthorizationGrantType.PASSWORD.getValue().equals(grantType)) {
             return null;
         }
 

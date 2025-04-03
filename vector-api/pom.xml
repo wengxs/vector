@@ -14,9 +14,11 @@
 
     <modules>
         <module>vector-api-system</module>
+        <module>vector-api-app</module>
         <module>vector-api-info</module>
         <module>vector-api-purchase</module>
         <module>vector-api-warehouse</module>
         <module>vector-api-sale</module>
+        <module>vector-api-third</module>
     </modules>
 </project>

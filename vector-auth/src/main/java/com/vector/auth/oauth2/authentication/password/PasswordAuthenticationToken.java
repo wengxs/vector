@@ -1,5 +1,6 @@
 package com.vector.auth.oauth2.authentication.password;
 
+import com.vector.auth.oauth2.authentication.CustomAuthorizationGrantType;
 import lombok.Getter;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
@@ -19,7 +20,7 @@ public class PasswordAuthenticationToken extends OAuth2AuthorizationGrantAuthent
     /** 密码 */
     private final String password;
 
-    public static final AuthorizationGrantType PASSWORD = new AuthorizationGrantType("password");
+    private static final AuthorizationGrantType grantType = CustomAuthorizationGrantType.PASSWORD;
 
     /**
      * @param username               the username
@@ -31,7 +32,7 @@ public class PasswordAuthenticationToken extends OAuth2AuthorizationGrantAuthent
                                        String password,
                                        Authentication clientPrincipal,
                                        @Nullable Map<String, Object> additionalParameters) {
-        super(PASSWORD, clientPrincipal, additionalParameters);
+        super(grantType, clientPrincipal, additionalParameters);
         this.username = username;
         this.password = password;
     }

@@ -1,6 +1,6 @@
 package ${packageName}.pojo.query;
 
-import com.vector.common.core.query.PageQuery;
+import com.vector.common.core.pagination.PageQuery;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -6,6 +6,8 @@ public interface SecurityConstant {
 
     String LOGIN_USER_KEY_PREFIX = "login_user_keys:";
 
+    String LOGIN_SMS_CODE_PREFIX = "sms_code:login:";
+
     String TOKEN_HEADER = "Authorization";
 
     String TOKEN_PREFIX = "Bearer ";
@@ -17,6 +19,8 @@ public interface SecurityConstant {
     String TOKEN_SECRET = "b0d51c58c8b9c1f458fadf16c7d375630ef51da4df81915893b05c0fa4ed8bc6";
 
     String TOKEN_INFO = "TokenInfo";
+
+    String TOKEN_INFO_CLIENT_ID = "clientId";
 
     String TOKEN_INFO_USERNAME = "username";
 
@@ -52,4 +56,7 @@ public interface SecurityConstant {
     String DEFAULT_PASSWORD = "123456";
 
     String JWK_SET_KEY = "jwk_set";
+
+    String CLIENT_ID_SYSTEM = "vector-admin";
+    String CLIENT_ID_APP = "vector-app";
 }

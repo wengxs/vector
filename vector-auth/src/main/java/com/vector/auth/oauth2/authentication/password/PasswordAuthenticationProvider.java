@@ -2,6 +2,7 @@ package com.vector.auth.oauth2.authentication.password;
 
 import com.vector.auth.oauth2.OAuth2AuthenticationProviderUtils;
 import com.vector.auth.oauth2.OAuth2EndpointUtils;
+import com.vector.auth.oauth2.authentication.CustomAuthorizationGrantType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +20,9 @@ import org.springframework.security.oauth2.server.authorization.token.DefaultOAu
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 
+/**
+ * 密码授权模式认证处理器
+ */
 public class PasswordAuthenticationProvider implements AuthenticationProvider {
 
     private final OAuth2AuthorizationService authorizationService;
@@ -32,7 +36,6 @@ public class PasswordAuthenticationProvider implements AuthenticationProvider {
         this.tokenGenerator = tokenGenerator;
         this.authorizationService = authorizationService;
     }
-
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -57,9 +60,9 @@ public class PasswordAuthenticationProvider implements AuthenticationProvider {
                         passwordAuthenticationToken.getPassword()
                 );
 
-        Authentication usernamePasswordAuthentication;
+        Authentication authenticationResult;
         try {
-            usernamePasswordAuthentication = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+            authenticationResult = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         } catch (Exception e) {
             throw new OAuth2AuthenticationException(e.getCause() != null ? e.getCause().getMessage() : e.getMessage());
         }
@@ -67,10 +70,10 @@ public class PasswordAuthenticationProvider implements AuthenticationProvider {
         // 访问令牌构造器
         DefaultOAuth2TokenContext.Builder tokenContextBuilder = DefaultOAuth2TokenContext.builder()
                 .registeredClient(registeredClient)
-                .principal(usernamePasswordAuthentication)
+                .principal(authenticationResult)
                 .authorizationServerContext(AuthorizationServerContextHolder.getContext())
                 .authorizedScopes(registeredClient.getScopes())
-                .authorizationGrantType(PasswordAuthenticationToken.PASSWORD)
+                .authorizationGrantType(CustomAuthorizationGrantType.PASSWORD)
                 .authorizationGrant(passwordAuthenticationToken)
                 ;
 
@@ -89,7 +92,7 @@ public class PasswordAuthenticationProvider implements AuthenticationProvider {
                 generatedAccessToken.getExpiresAt(), tokenContext.getAuthorizedScopes());
 
         OAuth2Authorization.Builder authorizationBuilder = OAuth2Authorization.withRegisteredClient(registeredClient)
-                .principalName(usernamePasswordAuthentication.getName())
+                .principalName(authenticationResult.getName())
                 .authorizationGrantType(passwordAuthenticationToken.getGrantType());
         if (generatedAccessToken instanceof ClaimAccessor) {
             authorizationBuilder.token(accessToken, (metadata) ->

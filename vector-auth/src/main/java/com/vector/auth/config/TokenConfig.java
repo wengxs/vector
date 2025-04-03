@@ -24,9 +24,11 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Configuration
 public class TokenConfig {
@@ -98,8 +100,11 @@ public class TokenConfig {
                                 claims.put(SecurityConstant.TOKEN_INFO_USERNAME, loginUser.getUsername());
                                 claims.put(SecurityConstant.TOKEN_INFO_DEPT_ID, loginUser.getDeptId());
                                 claims.put(SecurityConstant.TOKEN_INFO_DATA_SCOPE, loginUser.getDataScope());
-                                Set<String> authorities = AuthorityUtils.authorityListToSet(loginUser.getAuthorities());
+                                Set<String> authorities = AuthorityUtils.authorityListToSet(context.getPrincipal().getAuthorities())
+                                        .stream()
+                                        .collect(Collectors.collectingAndThen(Collectors.toSet(), Collections::unmodifiableSet));
                                 claims.put(SecurityConstant.TOKEN_INFO_AUTHORITIES, authorities);
+                                claims.put(SecurityConstant.TOKEN_INFO_CLIENT_ID, context.getRegisteredClient().getClientId());
                             });
                         }
                     });

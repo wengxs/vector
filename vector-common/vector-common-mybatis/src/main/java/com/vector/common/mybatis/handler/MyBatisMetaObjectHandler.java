@@ -12,7 +12,9 @@ public class MyBatisMetaObjectHandler implements MetaObjectHandler {
 
     private Long getOperator() {
         try {
-            return SecurityUtils.getUserId();
+            if (SecurityUtils.isAdminSystem()) {
+                return SecurityUtils.getUserId();
+            }
         } catch (Exception e){
             log.warn(e.getMessage());
         }

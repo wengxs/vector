@@ -4,7 +4,6 @@ import com.vector.common.core.exception.BizException;
 import com.vector.common.core.result.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -48,7 +47,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public R<?> runtimeException(RuntimeException e) {
         log.error(e.getMessage(), e);
-        if (e instanceof AccessDeniedException) {
+        String simpleName = e.getClass().getSimpleName();
+        if ("AccessDeniedException".equals(simpleName)) {
             throw e;
         }
         return R.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());

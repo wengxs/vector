@@ -1,0 +1,3 @@
+com.vector.common.web.config.FeignConfig
+com.vector.common.web.handler.GlobalExceptionHandler
+com.vector.common.web.aspect.RepeatSubmitAspect

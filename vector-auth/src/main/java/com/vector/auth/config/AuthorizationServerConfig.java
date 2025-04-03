@@ -1,13 +1,19 @@
 package com.vector.auth.config;
 
+import com.vector.auth.oauth2.authentication.CustomAuthorizationGrantType;
 import com.vector.auth.oauth2.authentication.password.PasswordAuthenticationConverter;
 import com.vector.auth.oauth2.authentication.password.PasswordAuthenticationProvider;
+import com.vector.auth.oauth2.authentication.smscode.SmsCodeAuthenticationConverter;
+import com.vector.auth.oauth2.authentication.smscode.SmsCodeAuthenticationProvider;
+import com.vector.auth.service.CustomUserDetailsService;
+import com.vector.common.core.constant.SecurityConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -59,9 +65,13 @@ public class AuthorizationServerConfig {
     @Autowired
     private AuthenticationFailureHandler loginFailureHandler;
     @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
+    @Autowired
     private OAuth2TokenGenerator<?> tokenGenerator;
     @Autowired
-    private LogoutSuccessHandler logoutSuccessHandler;
+    private CustomUserDetailsService appUserDetailsService;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     /**
      * Spring Security的过滤器链，用于协议端点的
@@ -73,10 +83,12 @@ public class AuthorizationServerConfig {
                                                                       AuthenticationManager authenticationManager)
             throws Exception {
         List<AuthenticationConverter> converters = List.of(
-                new PasswordAuthenticationConverter()
+                new PasswordAuthenticationConverter(),
+                new SmsCodeAuthenticationConverter()
         );
         List<AuthenticationProvider> providers = List.of(
-                new PasswordAuthenticationProvider(authorizationService, authenticationManager, tokenGenerator)
+                new PasswordAuthenticationProvider(authorizationService, authenticationManager, tokenGenerator),
+                new SmsCodeAuthenticationProvider(authorizationService, tokenGenerator, appUserDetailsService, redisTemplate)
         );
 
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
@@ -90,7 +102,6 @@ public class AuthorizationServerConfig {
                         .accessTokenResponseHandler(loginSuccessHandler)
                         .errorResponseHandler(loginFailureHandler)
                 );
-//                .oidc(Customizer.withDefaults());	// Enable OpenID Connect 1.0
 
         http
                 .exceptionHandling((exceptions) -> exceptions
@@ -99,7 +110,6 @@ public class AuthorizationServerConfig {
                                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
                         )
                 )
-                // Accept access tokens for User Info and/or Client Registration
                 .oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer ->
                         httpSecurityOAuth2ResourceServerConfigurer.jwt(Customizer.withDefaults()))
         ;
@@ -113,12 +123,12 @@ public class AuthorizationServerConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers("/login", "/logout", "/oauth/**", "/rsa/publicKey").permitAll()
+                        .requestMatchers("/auth/smsCode", "/error").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(Customizer.withDefaults())
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
+                        .logoutUrl("/auth/logout")
                         .logoutSuccessHandler(logoutSuccessHandler)
                 )
         ;
@@ -161,7 +171,7 @@ public class AuthorizationServerConfig {
     }
 
     private void initAdminClient(JdbcRegisteredClientRepository registeredClientRepository) {
-        String clientId = "vector-admin";
+        String clientId = SecurityConstant.CLIENT_ID_SYSTEM;
         String clientSecret = "admin";
         String clientName = "后台管理系统";
         String encodeSecret = passwordEncoder().encode(clientSecret);
@@ -177,7 +187,7 @@ public class AuthorizationServerConfig {
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+                .authorizationGrantType(CustomAuthorizationGrantType.PASSWORD)
                 .redirectUri("http://127.0.0.1:8080/authorized")
                 .postLogoutRedirectUri("http://127.0.0.1:8080/logged-out")
                 .scope(OidcScopes.OPENID)
@@ -188,7 +198,7 @@ public class AuthorizationServerConfig {
         registeredClientRepository.save(client);
     }
     private void initAppClient(JdbcRegisteredClientRepository registeredClientRepository) {
-        String clientId = "vector-app";
+        String clientId = SecurityConstant.CLIENT_ID_APP;
         String clientSecret = "app";
         String clientName = "App";
         String encodeSecret = passwordEncoder().encode(clientSecret);
@@ -204,7 +214,8 @@ public class AuthorizationServerConfig {
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+                .authorizationGrantType(CustomAuthorizationGrantType.PASSWORD)
+                .authorizationGrantType(CustomAuthorizationGrantType.SMS_CODE)
                 .redirectUri("http://127.0.0.1:8080/authorized")
                 .postLogoutRedirectUri("http://127.0.0.1:8080/logged-out")
                 .scope(OidcScopes.OPENID)

@@ -14,6 +14,14 @@
 <dependencies>
     <dependency>
         <groupId>com.vector</groupId>
+        <artifactId>vector-api-third</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.vector</groupId>
+        <artifactId>vector-common-mybatis</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.vector</groupId>
         <artifactId>vector-common-web</artifactId>
     </dependency>
 

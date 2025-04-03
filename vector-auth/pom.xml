@@ -18,11 +18,19 @@
         </dependency>
         <dependency>
             <groupId>com.vector</groupId>
+            <artifactId>vector-api-app</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vector</groupId>
+            <artifactId>vector-api-third</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vector</groupId>
             <artifactId>vector-common-redis</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.vector</groupId>
+            <artifactId>vector-common-web</artifactId>
         </dependency>
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

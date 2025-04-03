@@ -20,10 +20,18 @@
             <groupId>com.vector</groupId>
             <artifactId>vector-common-security</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vector</groupId>
+            <artifactId>vector-common-redis</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <dependency>
             <groupId>io.github.openfeign</groupId>

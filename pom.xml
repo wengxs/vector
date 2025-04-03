@@ -16,6 +16,7 @@
         <module>vector-auth</module>
         <module>vector-third</module>
         <module>vector-system</module>
+        <module>vector-app</module>
     </modules>
 
     <properties>
@@ -67,6 +68,16 @@
             <dependency>
                 <groupId>com.vector</groupId>
                 <artifactId>vector-api-system</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vector</groupId>
+                <artifactId>vector-api-third</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vector</groupId>
+                <artifactId>vector-api-app</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!--<dependency>

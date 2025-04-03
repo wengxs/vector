@@ -45,5 +45,4 @@ public class UserAuthInfo {
 
     /** 权限集合 */
     private Set<String> permissions;
-
 }

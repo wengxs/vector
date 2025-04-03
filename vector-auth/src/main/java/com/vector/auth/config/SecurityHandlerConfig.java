@@ -92,7 +92,7 @@ public class SecurityHandlerConfig {
             response.setContentType(ContentType.APPLICATION_JSON.toString());
             if (exception instanceof OAuth2AuthenticationException authenticationException) {
                 OAuth2Error error = authenticationException.getError();
-                log.error("认证失败：{}", error.getErrorCode());
+                log.error("认证失败：{}", error.getErrorCode(), authenticationException);
                 response.getWriter().write(objectMapper.writeValueAsString(R.fail(error.getErrorCode())));
             } else if (exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException) {
                 log.error("用户不存在：{}", exception.getMessage());
