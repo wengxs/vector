@@ -19,8 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
+import org.springframework.util.DigestUtils;
 
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,11 +41,14 @@ public class RepeatSubmitAspect {
 
     @Before("pointCut()")
     public void before(JoinPoint joinPoint) {
-        String uk = SecurityUtils.getJti();
         HttpServletRequest request = ServletUtil.getRequest();
         Method method = getMethod(joinPoint);
         PreventRepeatSubmit annotation = method.getAnnotation(PreventRepeatSubmit.class);
-        if (StringUtils.isBlank(uk) && method.getParameterCount() > 0) {
+        String uk = null;
+        if (PreventRepeatSubmit.Type.TOKEN.equals(annotation.type())) {
+            uk = SecurityUtils.getJti();
+        }
+        if (PreventRepeatSubmit.Type.PARAM.equals(annotation.type()) || StringUtils.isBlank(uk)) {
             // 如果jti为空，则取请求参数作为标识
             String[] params = parameterNameDiscoverer.getParameterNames(method);
             Object[] args = joinPoint.getArgs();
@@ -52,9 +57,11 @@ public class RepeatSubmitAspect {
                 map.put(params[i], args[i]);
             }
             uk = JSONObject.toJSONString(map);
+            log.debug("参数:{}", uk);
+            uk = DigestUtils.md5DigestAsHex(uk.getBytes(StandardCharsets.UTF_8));
+            log.debug("md5:{}", uk);
         }
-        log.debug(uk);
-        String key = "Lock:RepeatSubmit:" + request.getMethod() + "-" + request.getRequestURI() + "-" + uk;
+        String key = String.format("Lock:RepeatSubmit:%s-%s-%s", request.getMethod(), request.getRequestURI(), uk);
         boolean isOk = redisUtil.setNX(key, 1, annotation.interval());
         BizAssert.isTrue(isOk, "您的请求已提交，请不要重复提交或等待片刻再尝试。");
     }
