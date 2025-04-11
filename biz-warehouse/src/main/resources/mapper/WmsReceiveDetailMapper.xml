@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vector.wms.mapper.WmsReceiveDetailMapper">
+
+    <resultMap type="com.vector.wms.pojo.vo.WmsReceiveVO$Detail" id="WmsReceiveDetailVOResult">
+        <result property="id" column="id"/>
+        <result property="receiveId" column="receive_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="qty" column="qty"/>
+        <result property="receivedQty" column="received_qty"/>
+        <result property="qualifiedQty" column="qualified_qty"/>
+        <result property="unqualifiedQty" column="unqualified_qty"/>
+    </resultMap>
+
+    <sql id="selectPurchaseOrderDetailVOSql">
+        SELECT p.id, p.receive_id, p.product_id, pp.product_name,
+               p.qty, p.received_qty, p.qualified_qty, p.unqualified_qty
+        FROM wms_receive_detail p LEFT JOIN pms_product pp ON pp.id = p.product_id
+    </sql>
+
+    <select id="selectVOByReceiveId"  parameterType="Long" resultMap="WmsReceiveDetailVOResult">
+        <include refid="selectPurchaseOrderDetailVOSql"/>
+        WHERE p.receive_id = #{receiveId}
+    </select>
+
+</mapper>

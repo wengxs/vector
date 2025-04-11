@@ -10,4 +10,3 @@ spring:
     import:
       - nacos:vector-common.yaml?refresh=true
       - nacos:${spring.application.name}.yaml?refresh=true
-      - optional:nacos:${spring.application.name}-key.yaml?refresh=true

@@ -9,15 +9,18 @@
     <version>1.0</version>
     <packaging>pom</packaging>
     <modules>
-        <module>vector-module</module>
-        <module>vector-api</module>
         <module>vector-common</module>
+        <module>vector-api</module>
         <module>vector-gateway</module>
+        <module>vector-system</module>
         <module>vector-auth</module>
         <module>vector-third</module>
-        <module>vector-system</module>
         <module>vector-app</module>
         <module>vector-code-generation</module>
+        <module>biz-api</module>
+        <module>biz-product</module>
+        <module>biz-supply</module>
+        <module>biz-warehouse</module>
     </modules>
 
     <properties>
@@ -48,22 +51,32 @@
         <dependencies>
             <dependency>
                 <groupId>com.vector</groupId>
-                <artifactId>vector-api-sale</artifactId>
+                <artifactId>vector-common-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.vector</groupId>
-                <artifactId>vector-api-warehouse</artifactId>
+                <artifactId>vector-common-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.vector</groupId>
-                <artifactId>vector-api-purchase</artifactId>
+                <artifactId>vector-common-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.vector</groupId>
-                <artifactId>vector-api-info</artifactId>
+                <artifactId>vector-common-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vector</groupId>
+                <artifactId>vector-common-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vector</groupId>
+                <artifactId>vector-common-mq</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -81,39 +94,25 @@
                 <artifactId>vector-api-app</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!--<dependency>
-                <groupId>com.vector</groupId>
-                <artifactId>vector-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>-->
+            <!-- 业务相关依赖 -->
             <dependency>
                 <groupId>com.vector</groupId>
-                <artifactId>vector-common-core</artifactId>
+                <artifactId>biz-api-product</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.vector</groupId>
-                <artifactId>vector-common-redis</artifactId>
+                <artifactId>biz-api-supply</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.vector</groupId>
-                <artifactId>vector-common-mybatis</artifactId>
+                <artifactId>biz-api-warehouse</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.vector</groupId>
-                <artifactId>vector-common-web</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.vector</groupId>
-                <artifactId>vector-common-mq</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.vector</groupId>
-                <artifactId>vector-common-security</artifactId>
+                <artifactId>biz-api-sale</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -173,18 +172,6 @@
                 <version>3.27.2</version>
             </dependency>
 
-            <!-- pagehelper 分页插件 -->
-            <!--<dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>${pagehelper.boot.version}</version>
-            </dependency>-->
-
-            <!--<dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>-->
             <dependency>
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
@@ -248,7 +235,6 @@
                 <artifactId>hutool-core</artifactId>
                 <version>5.2.4</version>
             </dependency>
-
 
             <!--velocity代码生成使用模板 -->
             <dependency>
