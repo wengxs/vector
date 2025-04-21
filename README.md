@@ -39,7 +39,7 @@ Vector项目包含后端（微服务）和前端（管理端）。
 
 基础架构模块：
 - vector-common：公共模块
-- vector-api：API 接口定义
+- vector-api：Feign接口定义
 - vector-gateway：网关服务
 - vector-system：系统服务
 - vector-auth：认证服务
@@ -47,10 +47,38 @@ Vector项目包含后端（微服务）和前端（管理端）。
 - vector-code-generation：代码生成器
 
 业务模块：（可选）
-- biz-api：业务 API 接口定义
+- biz-api：业务Feign接口定义
 - biz-product：产品相关业务
 - biz-supply：供应相关业务
 - biz-warehouse：仓库相关业务
+
+## 目录结构：
+
+```text
+vector
+    biz-api                         # 业务Feign接口定义(可选)
+    biz-product                     # 产品相关业务(可选)
+    biz-supply                      # 供应相关业务(可选)
+    biz-warehouse                   # 仓库相关业务(可选)
+    
+    data                            # 数据库脚本
+    nacos                           # Nacos配置
+        nacos_config.zip            # Nacos脚本
+    seata                           # Seata配置
+    vector-api                      # Feign接口定义
+    vector-auth                     # 认证授权中心
+    vector-code-generation          # 代码生成器
+    vector-common                   # 公共模块
+        vector-common-core          # 基础依赖
+        vector-common-mq            # MQ公共模块
+        vector-common-mybatis       # MyBatis公共模块
+        vector-common-redis         # Redis公共模块
+        vector-common-security      # 资源服务器安全公共模块
+        vector-common-web           # Web公共模块
+    vector-gateway                  # 网关服务
+    vector-system                   # 系统服务
+    vector-third                    # 第三方服务集成
+```
 
 ## 开发文档
 
