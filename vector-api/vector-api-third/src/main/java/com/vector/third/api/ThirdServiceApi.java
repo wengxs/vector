@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(value = "vector-third", fallbackFactory = ThirdServiceApiFallback.class)
 public interface ThirdServiceApi {
 
-    @PostMapping("/remote/third/sms/send")
+    @PostMapping("/remote/sms/send")
     R<?> sendSms(@RequestBody SmsSendDto body);
 }

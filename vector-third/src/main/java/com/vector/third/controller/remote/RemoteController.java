@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 短信接口
  */
 @RestController
-@RequestMapping("/remote/third")
+@RequestMapping("/remote")
 public class RemoteController {
 
     @Autowired

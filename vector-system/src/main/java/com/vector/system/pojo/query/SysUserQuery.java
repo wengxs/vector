@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  * @author wengxs
  * @date 2024/5/12
  */
-@Schema
+@Schema(description = "用户分页查询参数")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SysUserQuery extends PageQuery {

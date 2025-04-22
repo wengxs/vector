@@ -12,8 +12,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("third_sms_log")
-public class ThirdSmsLog extends BaseEntity<Long> {
+@TableName("sms_log")
+public class SmsLog extends BaseEntity<Long> {
 
     /** 短信平台 */
     private String platform;

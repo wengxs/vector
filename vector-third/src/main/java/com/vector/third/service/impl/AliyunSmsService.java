@@ -8,9 +8,9 @@ import com.aliyuncs.IAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
-import com.vector.third.pojo.entity.ThirdSmsLog;
+import com.vector.third.pojo.entity.SmsLog;
 import com.vector.third.service.SmsService;
-import com.vector.third.service.ThirdSmsLogService;
+import com.vector.third.service.SmsLogService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class AliyunSmsService implements SmsService {
     private String signName;
 
     @Autowired
-    private ThirdSmsLogService thirdSmsLogService;
+    private SmsLogService smsLogService;
 
     @Override
     public boolean send(String mobile, String templateCode, String templateParam) {
@@ -77,14 +77,14 @@ public class AliyunSmsService implements SmsService {
             log.error("短信发送失败：{}", message, e);
         }
         // 记录日志
-        ThirdSmsLog thirdSmsLog = new ThirdSmsLog();
-        thirdSmsLog.setPlatform("aliyun");
-        thirdSmsLog.setMobile(mobile);
-        thirdSmsLog.setTemplateCode(templateCode);
-        thirdSmsLog.setTemplateParam(templateParam);
-        thirdSmsLog.setResult(result ? "成功" : "失败");
-        thirdSmsLog.setException(message);
-        thirdSmsLogService.save(thirdSmsLog);
+        SmsLog smsLog = new SmsLog();
+        smsLog.setPlatform("aliyun");
+        smsLog.setMobile(mobile);
+        smsLog.setTemplateCode(templateCode);
+        smsLog.setTemplateParam(templateParam);
+        smsLog.setResult(result ? "成功" : "失败");
+        smsLog.setException(message);
+        smsLogService.save(smsLog);
         return result;
     }
 }

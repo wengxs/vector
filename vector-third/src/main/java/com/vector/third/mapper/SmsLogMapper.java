@@ -1,7 +1,7 @@
 package com.vector.third.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.vector.third.pojo.entity.ThirdSmsLog;
+import com.vector.third.pojo.entity.SmsLog;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,5 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2025/04/02
  */
 @Mapper
-public interface ThirdSmsLogMapper extends BaseMapper<ThirdSmsLog> {
+public interface SmsLogMapper extends BaseMapper<SmsLog> {
 }
