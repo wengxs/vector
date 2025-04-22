@@ -1,37 +1,26 @@
-package com.vector.system.pojo.vo;
+package com.vector.system.pojo.form;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import java.util.Date;
-import java.util.List;
-
 /**
- * 部门 VO
+ * 部门表单对象
  * @author wengxs
  */
-@Schema(description = "部门视图对象")
+@Schema(description = "部门表单对象")
 @Data
-public class SysDeptVO {
+public class SysDeptForm {
 
     /** ID */
     @Schema(description = "部门ID")
     private Long id;
 
-    /** 创建时间 */
-    @Schema(description = "创建时间")
-    private Date createTime;
-
     /** 上级部门ID */
     @Schema(description = "上级部门ID")
     private Long parentId;
 
-    /** 祖级列表 */
-    @Schema(description = "祖级列表")
-    private String ancestors;
-
     /** 部门名称 */
-    @Schema(description = "部门名称")
+    @Schema(description = "部门名称", required = true)
     private String deptName;
 
     /** 部门领导 */
@@ -57,8 +46,4 @@ public class SysDeptVO {
     /** 排序 */
     @Schema(description = "显示顺序")
     private Integer sort;
-
-    /** 子部门 */
-    @Schema(description = "子部门列表")
-    private List<SysDeptVO> children;
-}
+} 

@@ -48,7 +48,14 @@ public class ResourceSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(requests -> {
-                    requests.requestMatchers("/error").permitAll();
+                    requests.requestMatchers(
+                            "/error",
+                            "/webjars/**",
+                            "/doc.html",
+                            "/swagger-resources/**",
+                            "/swagger-ui/**",
+                            "/v3/api-docs/**"
+                    ).permitAll();
                     if (!CollectionUtils.isEmpty(whitelistPaths)) {
                         for (String whitelistPath : whitelistPaths) {
                             requests.requestMatchers(mvcMatcherBuilder.pattern(whitelistPath)).permitAll();

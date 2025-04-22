@@ -1,12 +1,15 @@
 package com.vector.system.controller.admin;
 
 import com.vector.common.core.result.R;
-import com.vector.system.pojo.dto.SysMenuDTO;
 import com.vector.system.pojo.entity.SysMenu;
+import com.vector.system.pojo.form.SysMenuForm;
 import com.vector.system.pojo.query.SysMenuQuery;
 import com.vector.system.pojo.vo.MenuTree;
 import com.vector.system.pojo.vo.SysMenuVO;
 import com.vector.system.service.SysMenuService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "系统菜单")
 @RestController
 @RequestMapping("/sys/menu")
 public class SysMenuController {
@@ -22,6 +26,7 @@ public class SysMenuController {
     @Autowired
     private SysMenuService sysMenuService;
 
+    @Operation(summary = "菜单列表")
     @GetMapping("/list")
     @PreAuthorize("@ss.hasAuthority('sys:menu:query')")
     public R<List<SysMenuVO>> list(SysMenuQuery query) {
@@ -43,24 +48,28 @@ public class SysMenuController {
         }).toList();
     }
 
+    @Operation(summary = "获取路由菜单")
     @GetMapping("/router")
     public R<List<MenuTree>> router() {
         return R.ok(sysMenuService.routerTree());
     }
 
+    @Operation(summary = "获取菜单")
     @GetMapping("/{id}")
     @PreAuthorize("@ss.hasAuthority('sys:menu:query')")
-    public R<SysMenu> get(@PathVariable Long id) {
+    public R<SysMenu> get(@Parameter(description = "菜单ID") @PathVariable Long id) {
         return R.ok(sysMenuService.getById(id));
     }
 
+    @Operation(summary = "新增菜单")
     @PostMapping
     @PreAuthorize("@ss.hasAuthority('sys:menu:add')")
-    public R<?> add(@RequestBody SysMenuDTO menuDTO) {
-        sysMenuService.save(menuDTO);
+    public R<?> add(@RequestBody SysMenuForm menuForm) {
+        sysMenuService.save(menuForm);
         return R.ok();
     }
 
+    @Operation(summary = "修改菜单")
     @PutMapping
     @PreAuthorize("@ss.hasAuthority('sys:menu:edit')")
     public R<?> update(@RequestBody SysMenu sysMenu) {
@@ -68,13 +77,15 @@ public class SysMenuController {
         return R.ok();
     }
 
+    @Operation(summary = "删除菜单")
     @DeleteMapping("/{id}")
     @PreAuthorize("@ss.hasAuthority('sys:menu:del')")
-    public R<?> delete(@PathVariable Long id) {
+    public R<?> delete(@Parameter(description = "菜单ID") @PathVariable Long id) {
         sysMenuService.removeAllById(id, true);
         return R.ok();
     }
 
+    @Operation(summary = "获取菜单树")
     @GetMapping("/tree")
     public R<List<MenuTree>> tree() {
         return R.ok(sysMenuService.menuTree());

@@ -1,36 +1,31 @@
-package com.vector.system.pojo.vo;
+package com.vector.system.pojo.form;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import java.util.Date;
-
 /**
- * 字典选项 VO
+ * 字典选项表单对象
  * @author wengxs
+ * @date 2025/03/01
  */
-@Schema(description = "字典选项视图对象")
+@Schema(description = "字典选项表单对象")
 @Data
-public class SysDictOptionVO {
+public class SysDictOptionForm {
 
     /** ID */
     @Schema(description = "选项ID")
     private Long id;
 
-    /** 创建时间 */
-    @Schema(description = "创建时间")
-    private Date createTime;
-
     /** 字典键 */
-    @Schema(description = "字典键")
+    @Schema(description = "字典键", required = true)
     private String dictKey;
 
     /** 标签 */
-    @Schema(description = "选项标签")
+    @Schema(description = "选项标签", required = true)
     private String optionLabel;
 
     /** 项值 */
-    @Schema(description = "选项值")
+    @Schema(description = "选项值", required = true)
     private String optionValue;
 
     /** 排序 */
@@ -44,4 +39,4 @@ public class SysDictOptionVO {
     /** 样式 */
     @Schema(description = "选项样式")
     private String style;
-}
+} 

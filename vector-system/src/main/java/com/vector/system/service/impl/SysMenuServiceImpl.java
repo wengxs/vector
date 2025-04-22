@@ -8,9 +8,9 @@ import com.vector.common.core.util.BizAssert;
 import com.vector.system.enums.SysMenuPermission;
 import com.vector.system.enums.SysMenuType;
 import com.vector.system.mapper.SysMenuMapper;
-import com.vector.system.pojo.dto.SysMenuDTO;
 import com.vector.system.pojo.entity.SysMenu;
 import com.vector.system.pojo.entity.SysRoleMenu;
+import com.vector.system.pojo.form.SysMenuForm;
 import com.vector.system.pojo.vo.MenuTree;
 import com.vector.system.pojo.vo.RouterVO;
 import com.vector.system.pojo.vo.SysMenuVO;
@@ -39,23 +39,23 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     @Transactional
-    public void save(SysMenuDTO menuDTO) {
+    public void save(SysMenuForm menuForm) {
         SysMenu sysMenu = new SysMenu();
-        BeanUtils.copyProperties(menuDTO, sysMenu);
+        BeanUtils.copyProperties(menuForm, sysMenu);
         baseMapper.insert(sysMenu);
         if (sysMenu.getParentId() == 0L || SysMenuType.BUTTON.equals(sysMenu.getType())) {
             return;
         }
-        if (!CollectionUtils.isEmpty(menuDTO.getSubPermissions())) {
+        if (!CollectionUtils.isEmpty(menuForm.getSubPermissions())) {
             String permissionPrefix;
-            if (StringUtils.isNotBlank(menuDTO.getPermission())) {
-                permissionPrefix = menuDTO.getPermission().substring(0, menuDTO.getPermission().lastIndexOf(":") + 1);
+            if (StringUtils.isNotBlank(menuForm.getPermission())) {
+                permissionPrefix = menuForm.getPermission().substring(0, menuForm.getPermission().lastIndexOf(":") + 1);
             } else {
-                permissionPrefix = menuDTO.getComponent().replace("/", ":");
+                permissionPrefix = menuForm.getComponent().replace("/", ":");
                 permissionPrefix = permissionPrefix.substring(0, permissionPrefix.lastIndexOf(":") + 1);
             }
-            for (int i = 0; i < menuDTO.getSubPermissions().size(); i++) {
-                SysMenuPermission subPermission = menuDTO.getSubPermissions().get(i);
+            for (int i = 0; i < menuForm.getSubPermissions().size(); i++) {
+                SysMenuPermission subPermission = menuForm.getSubPermissions().get(i);
                 SysMenu subMenu = new SysMenu();
                 subMenu.setParentId(sysMenu.getId());
                 subMenu.setType(SysMenuType.BUTTON);

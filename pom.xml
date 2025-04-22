@@ -35,6 +35,7 @@
         <!--<fastjson.version>1.2.78</fastjson.version>-->
         <jackson.version>2.16.2</jackson.version>
         <jjwt.version>0.12.5</jjwt.version>
+        <knife4j.version>4.4.0</knife4j.version>
     </properties>
 
     <dependencies>
@@ -77,6 +78,11 @@
             <dependency>
                 <groupId>com.vector</groupId>
                 <artifactId>vector-common-mq</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vector</groupId>
+                <artifactId>vector-common-apidoc</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -236,11 +242,12 @@
                 <version>5.2.4</version>
             </dependency>
 
-            <!--velocity代码生成使用模板 -->
             <dependency>
-                <groupId>org.apache.velocity</groupId>
-                <artifactId>velocity</artifactId>
-                <version>1.7</version>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-dependencies</artifactId>
+                <version>${knife4j.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>

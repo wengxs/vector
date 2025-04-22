@@ -18,6 +18,7 @@
         <module>vector-common-mq</module>
         <module>vector-common-security</module>
         <module>vector-common-mybatis</module>
+        <module>vector-common-apidoc</module>
     </modules>
 
 </project>

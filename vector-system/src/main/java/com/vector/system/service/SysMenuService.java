@@ -1,8 +1,8 @@
 package com.vector.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.vector.system.pojo.dto.SysMenuDTO;
 import com.vector.system.pojo.entity.SysMenu;
+import com.vector.system.pojo.form.SysMenuForm;
 import com.vector.system.pojo.vo.MenuTree;
 import com.vector.system.pojo.vo.RouterVO;
 import com.vector.system.pojo.vo.SysMenuVO;
@@ -26,7 +26,7 @@ public interface SysMenuService extends IService<SysMenu> {
 
     List<MenuTree> routerTree();
 
-    void save(SysMenuDTO menuDTO);
+    void save(SysMenuForm menuForm);
 
     /**
      * 删除菜单及子菜单

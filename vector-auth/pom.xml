@@ -33,6 +33,11 @@
             <artifactId>vector-common-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.vector</groupId>
+            <artifactId>vector-common-apidoc</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
