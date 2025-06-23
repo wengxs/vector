@@ -1,0 +1,134 @@
+spring:
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  cloud:
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8080
+    openfeign:
+      circuitbreaker:
+        enabled: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${mysql.host}:${mysql.port}/vector_third?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+    username: ${mysql.username}
+    password: ${mysql.password}
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+  data:
+    redis:
+      host: ${redis.host}
+      port: ${redis.port}
+      password: ${redis.password}
+      database: 1
+      # 读超时
+      timeout: 3000
+      # 连接超时
+      connectTimeout: 5000
+      # Lettuce连接池
+      lettuce:
+        pool:
+          # 最小空闲连接
+          min-idle: 5
+          # 最大空闲连接
+          max-idle: 10
+          # 最大连接数
+          max-active: 100
+          # 连接分配应该阻塞的最大时间
+          max-wait: 2000
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.vector.*.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  pattern:
+    console: "%d [%thread] %-5level %logger - %msg%n"
+  level:
+    com.vector: debug
+
+security:
+  whitelist-paths:
+    - /remote/third/sms/send
+
+oss:
+  # OSS 类型 (目前支持aliyun、minio)
+  type: aliyun
+  # 阿里云OSS对象存储服务
+  aliyun:
+    # 服务Endpoint
+    endpoint: oss-cn-shenzhen.aliyuncs.com
+    # 访问凭据
+    access-key-id: LTAI5t7ChBvJhp1tjiCK38s6
+    # 凭据密钥
+    access-key-secret: ONseP2jZxQ1K1JY3juJFyu4yWd61Nw
+    # 存储桶名称
+    bucket-name: wengxs
+  # MinIO 对象存储服务
+  minio:
+    # 服务Endpoint
+    endpoint: http://localhost:18300
+    # 访问凭据
+    access-key: minioadmin
+    # 凭据密钥
+    secret-key: minioadmin
+    # 存储桶名称
+    bucket-name: default
+    # (可选)自定义域名，如果配置了域名，生成的文件URL是域名格式，未配置则URL则是IP格式
+    custom-domain:
+
+sms:
+  # 短信类型 (目前支持aliyun)
+  type: aliyun
+  # 阿里云短信服务
+  aliyun:
+    # 阿里云服务的区域ID
+    region-id: cn-hangzhou
+    # 阿里云短信服务API的域名
+    domain: dysmsapi.aliyuncs.com
+    # 访问凭据
+    access-key-id: LTAI5t7ChBvJhp1tjiCK38s6
+    # 凭据密钥
+    access-key-secret: ONseP2jZxQ1K1JY3juJFyu4yWd61Nw
+    # 短信签名，必须是已经在阿里云短信服务中注册并通过审核的
+    sign-name: XXXX
+
+# springdoc-openapi项目配置
+springdoc:
+  packages-to-exclude: com.vector.third.controller.remote
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.vector.third.controller
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn

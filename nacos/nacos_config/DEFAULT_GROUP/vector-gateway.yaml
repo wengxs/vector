@@ -1,0 +1,84 @@
+spring:
+  data:
+    redis:
+      host: ${redis.host}
+      port: ${redis.port}
+      password: ${redis.password}
+      database: 1
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: auth_route
+          uri: lb://vector-auth
+          predicates:
+            - Path=/auth-api/**
+          filters:
+#            - RewritePath=/auth/(?<segment>.*),/$\{segment}
+            - StripPrefix=1 # 跟上面方式效果一样
+
+        - id: system_route
+          uri: lb://vector-system
+          predicates:
+            - Path=/system-api/**
+          filters:
+            - StripPrefix=1
+
+        - id: third_route
+          uri: lb://vector-third
+          predicates:
+            - Path=/third-api/**
+          filters:
+            - StripPrefix=1
+
+        - id: app_route
+          uri: lb://vector-app
+          predicates:
+            - Path=/app-api/**
+          filters:
+            - StripPrefix=1
+
+        - id: gen_route
+          uri: lb://vector-code-generation
+          predicates:
+            - Path=/dev-api/**
+          filters:
+            - StripPrefix=1
+
+        - id: product_route
+          uri: lb://biz-product
+          predicates:
+            - Path=/product-api/**
+          filters:
+            - StripPrefix=1
+
+        - id: supply_route
+          uri: lb://biz-supply
+          predicates:
+            - Path=/supply-api/**
+          filters:
+            - StripPrefix=1
+
+        - id: warehouse_route
+          uri: lb://biz-warehouse
+          predicates:
+            - Path=/warehouse-api/**
+          filters:
+            - StripPrefix=1
+
+knife4j:
+  # 聚合swagger文档
+  gateway:
+    enabled: true
+    # 指定服务发现的模式聚合微服务文档，并且是默认`default`分组
+    strategy: discover
+    discover:
+      # 开启
+      enabled: true
+        # 指定版本号(swagger2|openapi3)
+      version: openapi3
+        # 需要排除的微服务(eg:网关服务)
+      excluded-services:
+          - ${spring.application.name}
