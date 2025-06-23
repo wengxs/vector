@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: vector-code-generation
+    name: vector-generation
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
@@ -17,7 +17,7 @@ spring:
       - nacos:vector-common.yaml?refresh=true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${mysql.host}:${mysql.port}/vector_code_generation?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+    url: jdbc:mysql://${mysql.host}:${mysql.port}/vector_generation?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
     username: ${mysql.username}
     password: ${mysql.password}
     type: com.alibaba.druid.pool.DruidDataSource

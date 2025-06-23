@@ -160,8 +160,38 @@
 * 进入容器终端
 
   ```
-  docker exec -it rabbitmq bash
+  docker exec -it nginx bash
   ```
 
+## Mysql主从安装
 
+```text
+mkdir -p /docker/mysql-master/{conf/conf.d,data}
+mkdir -p /docker/mysql-slave/{conf/conf.d,data}
+```
+```text
+cp /docker/mysql/conf/my.cnf /docker/mysql-master/conf
+cp /docker/mysql/conf/my.cnf /docker/mysql-slave/conf
+```
+```text
+docker run -d --name mysql-master -p 3307:3306 -v /docker/mysql-master/data:/var/lib/mysql -v /docker/mysql-master/conf/my.cnf:/etc/my.cnf -v /docker/mysql-master/conf/conf.d:/etc/mysql/conf.d --privileged=true -e MYSQL_ROOT_PASSWORD=root mysql:8.4.4
+docker run -d --name mysql-slave -p 3308:3306 -v /docker/mysql-slave/data:/var/lib/mysql -v /docker/mysql-slave/conf/my.cnf:/etc/my.cnf -v /docker/mysql-slave/conf/conf.d:/etc/mysql/conf.d --privileged=true -e MYSQL_ROOT_PASSWORD=root mysql:8.4.4
+```
 
+```text
+CREATE USER 'master'@'%' IDENTIFIED WITH mysql_native_password BY 'master';
+GRANT REPLICATION SLAVE ON *.* TO 'master'@'%';
+FLUSH PRIVILEGES;
+```
+
+```text
+SHOW BINARY LOG STATUS;
+```
+
+```text
+CHANGE REPLICATION SOURCE TO SOURCE_HOST='192.168.0.200', SOURCE_PORT=3307, SOURCE_USER='master', SOURCE_PASSWORD='master', SOURCE_LOG_FILE='mysql-bin.000003', SOURCE_LOG_POS=158;
+```
+```text
+START REPLICA;
+SHOW REPLICA STATUS\G;
+```

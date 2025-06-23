@@ -16,7 +16,7 @@
         <module>vector-auth</module>
         <module>vector-third</module>
         <module>vector-app</module>
-        <module>vector-code-generation</module>
+        <module>vector-generation</module>
         <module>biz-api</module>
         <module>biz-product</module>
         <module>biz-supply</module>

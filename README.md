@@ -44,7 +44,7 @@ Vector项目包含后端（微服务）和前端（管理端）。
 - vector-system：系统服务
 - vector-auth：认证服务
 - vector-third：第三方服务集成
-- vector-code-generation：代码生成器
+- vector-generation：代码生成器
 
 业务模块：（可选）
 - biz-api：业务Feign接口定义
@@ -67,7 +67,7 @@ vector
     seata                           # Seata配置
     vector-api                      # Feign接口定义
     vector-auth                     # 认证授权中心
-    vector-code-generation          # 代码生成器
+    vector-generation               # 代码生成器
     vector-common                   # 公共模块
         vector-common-core          # 基础依赖
         vector-common-mq            # MQ公共模块

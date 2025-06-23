@@ -5,7 +5,8 @@ export interface ${BizName}Query extends PageQuery {
 #foreach ($tableField in $tableFields)
 #if($tableField.isQuery)
   /** ${tableField.comment} */
-#if($tableField.javaType == "Long" || $tableField.javaType == "Integer")
+#if($tableField.javaType == "Long" || $tableField.javaType == "Integer" ||
+  $tableField.javaType == "Double" || $tableField.javaType == "BigDecimal")
   ${tableField.javaField}?: number;
 #elseif($tableField.javaType == "Boolean")
   ${tableField.javaField}?: boolean;
@@ -23,7 +24,8 @@ export interface ${BizName}VO {
 #foreach ($tableField in $tableFields)
 #if($tableField.javaField != "createBy" && $tableField.javaField != "updateTime" && $tableField.javaField != "updateBy")
   /** ${tableField.comment} */
-#if($tableField.javaType == "Long" || $tableField.javaType == "Integer")
+#if($tableField.javaType == "Long" || $tableField.javaType == "Integer" ||
+  $tableField.javaType == "Double" || $tableField.javaType == "BigDecimal")
   ${tableField.javaField}?: number;
 #elseif($tableField.javaType == "Boolean")
   ${tableField.javaField}?: boolean;
@@ -45,7 +47,8 @@ export interface ${BizName}Form {
 && $tableField.javaField != "createTime" && $tableField.javaField != "createBy"
 && $tableField.javaField != "updateTime" && $tableField.javaField != "updateBy")
   /** ${tableField.comment} */
-#if($tableField.javaType == "Long" || $tableField.javaType == "Integer")
+#if($tableField.javaType == "Long" || $tableField.javaType == "Integer" ||
+  $tableField.javaType == "Double" || $tableField.javaType == "BigDecimal")
   ${tableField.javaField}?: number;
 #elseif($tableField.javaType == "Boolean")
   ${tableField.javaField}?: boolean;
