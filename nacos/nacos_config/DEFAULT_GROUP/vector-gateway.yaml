@@ -40,8 +40,8 @@ spring:
           filters:
             - StripPrefix=1
 
-        - id: gen_route
-          uri: lb://vector-code-generation
+        - id: dev_route
+          uri: lb://vector-development
           predicates:
             - Path=/dev-api/**
           filters:

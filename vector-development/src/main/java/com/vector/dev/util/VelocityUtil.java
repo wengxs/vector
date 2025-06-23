@@ -1,8 +1,8 @@
-package com.vector.gen.util;
+package com.vector.dev.util;
 
-import com.vector.gen.constant.GenConstant;
-import com.vector.gen.entity.GenTable;
-import com.vector.gen.entity.GenTableField;
+import com.vector.dev.constant.GenConstant;
+import com.vector.dev.entity.GenTable;
+import com.vector.dev.entity.GenTableField;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;

@@ -1,7 +1,7 @@
-package com.vector.gen.service;
+package com.vector.dev.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.vector.gen.entity.GenTableField;
+import com.vector.dev.entity.GenTableField;
 
 import java.util.List;
 

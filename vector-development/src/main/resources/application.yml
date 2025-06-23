@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: vector-generation
+    name: vector-development
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
@@ -17,7 +17,7 @@ spring:
       - nacos:vector-common.yaml?refresh=true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${mysql.host}:${mysql.port}/vector_generation?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+    url: jdbc:mysql://${mysql.host}:${mysql.port}/vector_development?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
     username: ${mysql.username}
     password: ${mysql.password}
     type: com.alibaba.druid.pool.DruidDataSource
@@ -48,7 +48,7 @@ spring:
           max-wait: 2000
 
 mybatis-plus:
-  type-aliases-package: com.vector.gen.entity
+  type-aliases-package: com.vector.dev.entity
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: true

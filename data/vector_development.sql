@@ -5,7 +5,7 @@
  Source Server Type    : MySQL
  Source Server Version : 50741 (5.7.41-log)
  Source Host           : localhost:3306
- Source Schema         : vector_code_generation
+ Source Schema         : vector_development
 
  Target Server Type    : MySQL
  Target Server Version : 50741 (5.7.41-log)

@@ -1,4 +1,4 @@
-package com.vector.gen.entity;
+package com.vector.dev.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

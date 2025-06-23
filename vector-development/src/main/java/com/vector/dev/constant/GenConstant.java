@@ -1,4 +1,4 @@
-package com.vector.gen.constant;
+package com.vector.dev.constant;
 
 /**
  * @author wengxs

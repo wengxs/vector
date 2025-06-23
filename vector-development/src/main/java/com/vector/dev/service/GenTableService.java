@@ -1,8 +1,8 @@
-package com.vector.gen.service;
+package com.vector.dev.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.vector.gen.entity.GenTable;
+import com.vector.dev.entity.GenTable;
 
 import java.util.List;
 import java.util.Map;

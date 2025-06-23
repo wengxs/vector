@@ -1,16 +1,16 @@
-package com.vector.gen.service.impl;
+package com.vector.dev.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.vector.common.security.util.SecurityUtils;
-import com.vector.gen.constant.GenConstant;
-import com.vector.gen.entity.GenTable;
-import com.vector.gen.entity.GenTableField;
-import com.vector.gen.mapper.GenTableMapper;
-import com.vector.gen.service.GenTableFieldService;
-import com.vector.gen.service.GenTableService;
-import com.vector.gen.util.VelocityUtil;
+import com.vector.dev.constant.GenConstant;
+import com.vector.dev.entity.GenTable;
+import com.vector.dev.entity.GenTableField;
+import com.vector.dev.mapper.GenTableMapper;
+import com.vector.dev.service.GenTableFieldService;
+import com.vector.dev.service.GenTableService;
+import com.vector.dev.util.VelocityUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;

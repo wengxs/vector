@@ -9,8 +9,8 @@
         <version>1.0</version>
     </parent>
 
-    <description>代码生成模块</description>
-    <artifactId>vector-generation</artifactId>
+    <description>开发工具模块</description>
+    <artifactId>vector-development</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>

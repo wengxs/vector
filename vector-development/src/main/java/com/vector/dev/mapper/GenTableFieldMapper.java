@@ -1,7 +1,7 @@
-package com.vector.gen.mapper;
+package com.vector.dev.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.vector.gen.entity.GenTableField;
+import com.vector.dev.entity.GenTableField;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

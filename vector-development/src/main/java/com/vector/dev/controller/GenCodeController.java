@@ -1,14 +1,14 @@
-package com.vector.gen.controller;
+package com.vector.dev.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.vector.common.core.pagination.Pageable;
 import com.vector.common.core.result.PageResult;
 import com.vector.common.core.result.R;
-import com.vector.gen.entity.GenTable;
-import com.vector.gen.entity.GenTableField;
-import com.vector.gen.service.GenTableFieldService;
-import com.vector.gen.service.GenTableService;
+import com.vector.dev.entity.GenTable;
+import com.vector.dev.entity.GenTableField;
+import com.vector.dev.service.GenTableFieldService;
+import com.vector.dev.service.GenTableService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
