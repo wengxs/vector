@@ -32,7 +32,7 @@ public class RemoteUserController {
     private SysMenuService sysMenuService;
 
     @GetMapping("/load/{username}")
-    public R<UserAuthInfo> loadUserByUsername(@PathVariable String username) {
+    public R<UserAuthInfo> loadUserByUsername(@PathVariable("username") String username) {
         SysUser sysUser = sysUserService.getOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getUsername, username));
         if (sysUser == null) {
             return R.ok();
