@@ -13,10 +13,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>biz-api-product</module>
-        <module>biz-api-supply</module>
-        <module>biz-api-warehouse</module>
-        <module>biz-api-sale</module>
     </modules>
 
     <dependencies>

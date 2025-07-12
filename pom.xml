@@ -15,14 +15,10 @@
         <module>vector-system</module>
         <module>vector-auth</module>
         <module>vector-third</module>
-        <module>vector-app</module>
         <module>vector-development</module>
         <module>biz-bom</module>
         <module>biz-api</module>
         <module>biz-module</module>
-        <module>biz-product</module>
-        <module>biz-supply</module>
-        <module>biz-warehouse</module>
     </modules>
 
     <properties>
@@ -34,7 +30,6 @@
         <spring-cloud.version>2023.0.6</spring-cloud.version>
         <spring-cloud-alibaba.version>2023.0.1.0</spring-cloud-alibaba.version>
         <mybatis-plus.version>3.5.5</mybatis-plus.version>
-        <!--<fastjson.version>1.2.78</fastjson.version>-->
         <jjwt.version>0.12.5</jjwt.version>
         <knife4j.version>4.4.0</knife4j.version>
     </properties>

@@ -14,7 +14,6 @@
 
     <modules>
         <module>vector-api-system</module>
-        <module>vector-api-app</module>
         <module>vector-api-third</module>
     </modules>
 </project>

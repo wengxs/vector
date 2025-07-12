@@ -1,8 +1,0 @@
-server:
-  port: 13000
-
-spring:
-  application:
-    name: vector-app
-  profiles:
-    active: dev
