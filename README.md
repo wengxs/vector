@@ -47,24 +47,20 @@ Vector项目包含后端（微服务）和前端（管理端）。
 - vector-development：开发工具模块
 
 业务模块：（可选）
-- biz-api：业务Feign接口定义
-- biz-product：产品相关业务
-- biz-supply：供应相关业务
-- biz-warehouse：仓库相关业务
+- biz-api：业务模块API定义
+- biz-bom：业务依赖管理
+- biz-module：业务模块
 
 ## 目录结构：
 
 ```text
 vector
-    biz-api                         # 业务Feign接口定义(可选)
-    biz-product                     # 产品相关业务(可选)
-    biz-supply                      # 供应相关业务(可选)
-    biz-warehouse                   # 仓库相关业务(可选)
-    
+    biz-api                         # 业务模块API定义(可选)
+    biz-bom                         # 业务依赖管理(可选)
+    biz-module                      # 业务模块(可选)
     data                            # 数据库脚本
     nacos                           # Nacos配置
-        nacos_config.zip            # Nacos脚本
-    seata                           # Seata配置
+    seata                           # Seata配置(可选)
     vector-api                      # Feign接口定义
     vector-auth                     # 认证授权中心
     vector-common                   # 公共模块
@@ -74,7 +70,7 @@ vector
         vector-common-redis         # Redis公共模块
         vector-common-security      # 资源服务器安全公共模块
         vector-common-web           # Web公共模块
-    vector-development              # 开发工具模块
+    vector-development              # 开发工具模块（生成代码）
     vector-gateway                  # 网关服务
     vector-system                   # 系统服务
     vector-third                    # 第三方服务集成
