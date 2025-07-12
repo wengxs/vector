@@ -1,6 +1,5 @@
 package com.vector.auth;
 
-import com.vector.app.api.AppUserApi;
 import com.vector.system.api.SysUserApi;
 import com.vector.third.api.ThirdServiceApi;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +12,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackageClasses = { SysUserApi.class, AppUserApi.class, ThirdServiceApi.class})
+@EnableFeignClients(basePackageClasses = { SysUserApi.class, ThirdServiceApi.class})
 public class AuthApplication {
 
     public static void main(String[] args) {

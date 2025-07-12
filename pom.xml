@@ -91,11 +91,6 @@
                 <artifactId>vector-api-third</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.vector</groupId>
-                <artifactId>vector-api-app</artifactId>
-                <version>${project.version}</version>
-            </dependency>
 
             <!-- spring boot 依赖 -->
             <dependency>

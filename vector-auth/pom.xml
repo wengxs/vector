@@ -18,10 +18,6 @@
         </dependency>
         <dependency>
             <groupId>com.vector</groupId>
-            <artifactId>vector-api-app</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.vector</groupId>
             <artifactId>vector-api-third</artifactId>
         </dependency>
         <dependency>
