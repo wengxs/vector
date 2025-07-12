@@ -5,18 +5,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.vector</groupId>
-        <artifactId>biz-bom</artifactId>
+        <artifactId>biz-api</artifactId>
         <version>1.0</version>
-        <relativePath>../biz-bom/pom.xml</relativePath>
     </parent>
 
-    <artifactId>biz-module</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>biz-api-sale</artifactId>
 
-    <modules>
-        <module>biz-product</module>
-        <module>biz-supply</module>
-        <module>biz-warehouse</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>com.vector</groupId>
+            <artifactId>vector-common-core</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -20,7 +20,26 @@
 
     <dependencyManagement>
         <dependencies>
-
+            <dependency>
+                <groupId>com.vector</groupId>
+                <artifactId>biz-api-product</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vector</groupId>
+                <artifactId>biz-api-supply</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vector</groupId>
+                <artifactId>biz-api-warehouse</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vector</groupId>
+                <artifactId>biz-api-sale</artifactId>
+                <version>1.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
