@@ -22,8 +22,8 @@ import java.util.Map;
  * 2020/6/9 19:32
  */
 @RestController
-@RequestMapping("/gen/code")
-public class GenCodeController {
+@RequestMapping("/code/gen")
+public class CodeGenController {
 
     @Autowired
     private GenTableService genTableService;
