@@ -117,7 +117,7 @@ INSERT INTO `sys_menu` VALUES (1, '2025-05-20 13:14:20', 1, '2025-05-20 13:14:20
 INSERT INTO `sys_menu` VALUES (2, '2025-05-20 13:14:20', 1, '2025-05-20 13:14:20', 1, 1, '菜单管理', 'menu', 'MENU', NULL, 1, '/sys/menu', 'sys/menu/index', 0);
 INSERT INTO `sys_menu` VALUES (3, '2025-05-20 13:14:20', 1, '2025-05-20 13:14:20', 1, 2, '菜单管理-查询', NULL, 'BUTTON', 'sys:menu:query', 1, NULL, NULL, 0);
 INSERT INTO `sys_menu` VALUES (4, '2025-05-20 13:14:20', 1, '2025-05-20 13:14:20', 1, 2, '菜单管理-新增', NULL, 'BUTTON', 'sys:menu:add', 2, NULL, NULL, 0);
-INSERT INTO `sys_menu` VALUES (5, '2025-05-20 13:14:20', 1, '2025-05-20 13:14:20', 1, 2, '菜单管理-修改', NULL, 'BUTTON', 'sys:menu:update', 3, NULL, NULL, 0);
+INSERT INTO `sys_menu` VALUES (5, '2025-05-20 13:14:20', 1, '2025-05-20 13:14:20', 1, 2, '菜单管理-修改', NULL, 'BUTTON', 'sys:menu:edit', 3, NULL, NULL, 0);
 INSERT INTO `sys_menu` VALUES (6, '2025-05-20 13:14:20', 1, '2025-05-20 13:14:20', 1, 2, '菜单管理-删除', NULL, 'BUTTON', 'sys:menu:del', 4, NULL, NULL, 0);
 INSERT INTO `sys_menu` VALUES (7, '2025-05-20 13:14:20', 1, '2025-05-20 13:14:20', 1, 1, '角色管理', 'role', 'MENU', NULL, 2, '/sys/role', 'sys/role/index', 0);
 INSERT INTO `sys_menu` VALUES (8, '2025-05-20 13:14:20', 1, '2025-05-20 13:14:20', 1, 7, '角色管理-查询', NULL, 'BUTTON', 'sys:role:query', 1, NULL, NULL, 0);
