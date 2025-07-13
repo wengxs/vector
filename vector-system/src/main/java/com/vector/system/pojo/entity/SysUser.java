@@ -36,7 +36,7 @@ public class SysUser extends BaseEntity<Long> {
     /** 用户头像 */
     private String avatar;
 
-    /** 帐号状态（0停用，1正常） */
+    /** 帐号状态 */
     private SysUserStatus userStatus;
 
     /** 部门ID */

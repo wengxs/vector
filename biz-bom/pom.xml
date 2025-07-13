@@ -7,6 +7,7 @@
         <groupId>com.vector</groupId>
         <artifactId>vector</artifactId>
         <version>1.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>biz-bom</artifactId>
