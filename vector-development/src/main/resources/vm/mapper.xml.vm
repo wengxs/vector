@@ -5,7 +5,12 @@
     <resultMap id="${ClassName}VOResult" type="${packageName}.pojo.vo.${ClassName}VO">
 #foreach ($tableField in $tableFields)
 #if($tableField.javaField != "createBy" && $tableField.javaField != "updateTime" && $tableField.javaField != "updateBy")
+#if($tableField.javaType == "JSONArray")
+        <result property="${tableField.javaField}" column="${tableField.name}"
+                typeHandler="com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler"/>
+#else
         <result property="${tableField.javaField}" column="${tableField.name}"/>
+#end
 #end
 #end
     </resultMap>
@@ -16,7 +21,6 @@
 && $tableField.javaField != "createTime" && $tableField.javaField != "createBy"
 && $tableField.javaField != "updateTime" && $tableField.javaField != "updateBy"), p.${tableField.name}#end
 #end
-
         FROM ${tableName} p
     </sql>
 
