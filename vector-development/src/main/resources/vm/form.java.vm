@@ -1,10 +1,12 @@
-package ${packageName}.pojo.query;
+package ${packageName}.pojo.form;
 
 #set($hasDate = false)
 #set($hasBigDecimal = false)
 #set($hasJson = false)
 #foreach ($tableField in $tableFields)
-#if($tableField.isQuery)
+#if($tableField.isForm && $tableField.javaField != "id"
+&& $tableField.javaField != "createTime" && $tableField.javaField != "createBy"
+&& $tableField.javaField != "updateTime" && $tableField.javaField != "updateBy")
 #if($tableField.javaType == "Date")#set($hasDate = true)#end
 #if($tableField.javaType == "BigDecimal")#set($hasBigDecimal = true)#end
 #if($tableField.javaType == "JSONArray")#set($hasJson = true)#end
@@ -13,9 +15,7 @@ package ${packageName}.pojo.query;
 #if($hasJson)
 import com.alibaba.fastjson2.JSONArray;
 #end
-import com.vector.common.core.pagination.PageQuery;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 #if($hasBigDecimal)
 import java.math.BigDecimal;
@@ -25,15 +25,19 @@ import java.util.Date;
 #end
 
 /**
- * ${tableComment} 查询参数
+ * ${tableComment} Form
  * @author ${author}
  * @date ${date}
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class ${ClassName}Query extends PageQuery {
+public class ${ClassName}Form {
+
+    /** ID */
+    private Long id;
 #foreach ($tableField in $tableFields)
-#if($tableField.isQuery)
+#if($tableField.isForm && $tableField.javaField != "id"
+&& $tableField.javaField != "createTime" && $tableField.javaField != "createBy"
+&& $tableField.javaField != "updateTime" && $tableField.javaField != "updateBy")
 
     /** ${tableField.comment} */
     private ${tableField.javaType} ${tableField.javaField};

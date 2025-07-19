@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.vector.common.core.pagination.Pageable;
 import com.vector.common.core.result.PageResult;
 import com.vector.common.core.result.R;
-import ${packageName}.pojo.dto.${ClassName}DTO;
 import ${packageName}.pojo.entity.${ClassName};
+import ${packageName}.pojo.form.${ClassName}Form;
 import ${packageName}.pojo.query.${ClassName}Query;
 import ${packageName}.pojo.vo.${ClassName}VO;
 import ${packageName}.service.${ClassName}Service;
@@ -22,7 +22,7 @@ import java.util.List;
  * @date ${date}
  */
 @RestController
-@RequestMapping("/${moduleName}/${bizName}")
+@RequestMapping("/${bizPrefix}/${bizName}")
 public class ${ClassName}Controller {
 
     @Autowired
@@ -58,18 +58,18 @@ public class ${ClassName}Controller {
 
     @PostMapping
     @PreAuthorize("@ss.hasAuthority('${permissionPrefix}add')")
-    public R<?> add(@RequestBody ${ClassName}DTO ${bizName}DTO) {
+    public R<?> add(@RequestBody ${ClassName}Form ${bizName}Form) {
         ${ClassName} ${className} = new ${ClassName}();
-        BeanUtils.copyProperties(${bizName}DTO, ${className});
+        BeanUtils.copyProperties(${bizName}Form, ${className});
         ${className}Service.save(${className});
         return R.ok();
     }
 
     @PutMapping
     @PreAuthorize("@ss.hasAuthority('${permissionPrefix}edit')")
-    public R<?> update(@RequestBody ${ClassName}DTO ${bizName}DTO) {
+    public R<?> update(@RequestBody ${ClassName}Form ${bizName}Form) {
         ${ClassName} ${className} = new ${ClassName}();
-        BeanUtils.copyProperties(${bizName}DTO, ${className});
+        BeanUtils.copyProperties(${bizName}Form, ${className});
         ${className}Service.updateById(${className});
         return R.ok();
     }

@@ -2,18 +2,20 @@ import request from "@/utils/request";
 import { AxiosPromise } from "axios";
 import { ${BizName}Query, ${BizName}VO, ${BizName}Form } from "./types";
 
+const BASE_URL = '/${moduleName}-api/${bizPrefix}/${bizName}';
+
 /** 获取分页列表 */
 export const list${BizName} = (queryParams: ${BizName}Query): AxiosPromise<PageResult<${BizName}VO[]>> =>
-  request.get('/${moduleName}/${bizName}/list', { params: queryParams });
+  request.get(`${BASE_URL}/list`, { params: queryParams });
 
 /** 获取详情 */
-export const get${BizName} = (id: number): AxiosPromise<${BizName}VO> => request.get(`/${moduleName}/${bizName}/${id}`);
+export const get${BizName} = (id: number): AxiosPromise<${BizName}VO> => request.get(`${BASE_URL}/${id}`);
 
 /** 添加 */
-export const add${BizName} = (data: ${BizName}Form) => request.post('/${moduleName}/${bizName}', data);
+export const add${BizName} = (data: ${BizName}Form) => request.post(`${BASE_URL}`, data);
 
 /** 修改 */
-export const update${BizName} = (data: ${BizName}Form) => request.put('/${moduleName}/${bizName}', data);
+export const update${BizName} = (data: ${BizName}Form) => request.put(`${BASE_URL}`, data);
 
 /** 删除 */
-export const del${BizName} = (ids: number[]) => request.delete(`/${moduleName}/${bizName}/${ids}`);
+export const del${BizName} = (ids: number[]) => request.delete(`${BASE_URL}/${ids}`);

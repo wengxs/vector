@@ -1,0 +1,90 @@
+import request from "@/utils/request";
+import { AxiosPromise } from "axios";
+
+const BASE_URL = '/${moduleName}-api/${bizPrefix}/${bizName}';
+
+const API = {
+  /** 获取分页列表 */
+  list${BizName}(queryParams: ${BizName}Query): AxiosPromise<PageResult<${BizName}VO[]>> {
+    return request.get(`${BASE_URL}/list`, { params: queryParams });
+  },
+  /** 获取详情 */
+  get${BizName}(id: number): AxiosPromise<${BizName}VO> {
+    return request.get(`${BASE_URL}/${id}`);
+  },
+  /** 添加 */
+  add${BizName}(data: ${BizName}Form): AxiosPromise<void> {
+    return request.post(`${BASE_URL}`, data);
+  },
+  /** 修改 */
+  update${BizName}(data: ${BizName}Form): AxiosPromise<void> {
+    return request.put(`${BASE_URL}`, data);
+  },
+  /** 删除 */
+  del${BizName}(ids: number[]): AxiosPromise<void> {
+    return request.delete(`${BASE_URL}/${ids}`);
+  }
+};
+
+export default API;
+
+/**
+ * 查询参数
+ */
+export interface ${BizName}Query extends PageQuery {
+#foreach ($tableField in $tableFields)
+#if($tableField.isQuery)
+  /** ${tableField.comment} */
+#if($tableField.javaType == "Long" || $tableField.javaType == "Integer" ||
+  $tableField.javaType == "Double" || $tableField.javaType == "BigDecimal")
+  ${tableField.javaField}?: number;
+#elseif($tableField.javaType == "Boolean")
+  ${tableField.javaField}?: boolean;
+#else
+  ${tableField.javaField}?: string;
+#end
+#end
+#end
+}
+
+/**
+ * 对象视图
+ */
+export interface ${BizName}VO {
+#foreach ($tableField in $tableFields)
+#if($tableField.javaField != "createBy" && $tableField.javaField != "updateTime" && $tableField.javaField != "updateBy")
+  /** ${tableField.comment} */
+#if($tableField.javaType == "Long" || $tableField.javaType == "Integer" ||
+  $tableField.javaType == "Double" || $tableField.javaType == "BigDecimal")
+  ${tableField.javaField}?: number;
+#elseif($tableField.javaType == "Boolean")
+  ${tableField.javaField}?: boolean;
+#else
+  ${tableField.javaField}?: string;
+#end
+#end
+#end
+}
+
+/**
+ * 表单对象
+ */
+export interface ${BizName}Form {
+  /** ID */
+  id?: number;
+#foreach ($tableField in $tableFields)
+#if($tableField.javaField != "id" && $tableField.isForm
+&& $tableField.javaField != "createTime" && $tableField.javaField != "createBy"
+&& $tableField.javaField != "updateTime" && $tableField.javaField != "updateBy")
+  /** ${tableField.comment} */
+#if($tableField.javaType == "Long" || $tableField.javaType == "Integer" ||
+  $tableField.javaType == "Double" || $tableField.javaType == "BigDecimal")
+  ${tableField.javaField}?: number;
+#elseif($tableField.javaType == "Boolean")
+  ${tableField.javaField}?: boolean;
+#else
+  ${tableField.javaField}?: string;
+#end
+#end
+#end
+}

@@ -39,6 +39,9 @@ public class GenTable extends BaseEntity<Long> {
     /** 模块名 */
     private String moduleName;
 
+    /** 业务前缀 */
+    private String bizPrefix;
+
     /** 业务名 */
     private String bizName;
 

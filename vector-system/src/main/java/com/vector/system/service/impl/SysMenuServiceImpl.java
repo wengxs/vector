@@ -60,7 +60,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
                 subMenu.setParentId(sysMenu.getId());
                 subMenu.setType(SysMenuType.BUTTON);
                 subMenu.setMenuName(sysMenu.getMenuName() + "-" + subPermission.getDesc());
-                subMenu.setSort(i);
+                subMenu.setSort(i+1);
                 subMenu.setPermission(permissionPrefix + subPermission.name().toLowerCase());
                 baseMapper.insert(subMenu);
             }

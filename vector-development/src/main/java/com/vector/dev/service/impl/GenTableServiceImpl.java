@@ -63,18 +63,20 @@ public class GenTableServiceImpl extends ServiceImpl<GenTableMapper, GenTable> i
             tableField.setJavaType(GenConstant.JAVA_TYPE_STRING);
         } else if (containsType(GenConstant.FIELD_TYPE_TIME, fieldType)) {
             tableField.setJavaType(GenConstant.JAVA_TYPE_DATE);
-        } else if (containsType(GenConstant.FIELD_TYPE_NUMBER, fieldType)) {
-            String[] str = StringUtils.split(StringUtils.substringBetween(tableField.getType(), "(", ")"), ",");
-            if (str != null && str.length == 2 && Integer.parseInt(str[1]) > 0) {
-                if ("decimal".equals(fieldType))
-                    tableField.setJavaType(GenConstant.JAVA_TYPE_BIG_DECIMAL);
-                else
-                    tableField.setJavaType(GenConstant.JAVA_TYPE_DOUBLE);
-            } else if ("bigint".equals(fieldType)) {
-                tableField.setJavaType(GenConstant.JAVA_TYPE_LONG);
-            } else {
-                tableField.setJavaType(GenConstant.JAVA_TYPE_INTEGER);
-            }
+        } else if (containsType(GenConstant.FIELD_TYPE_LONG, fieldType)) {
+            tableField.setJavaType(GenConstant.JAVA_TYPE_LONG);
+        } else if (containsType(GenConstant.FIELD_TYPE_INTEGER, fieldType)) {
+            tableField.setJavaType(GenConstant.JAVA_TYPE_INTEGER);
+        } else if (containsType(GenConstant.FIELD_TYPE_DECIMAL, fieldType)) {
+            tableField.setJavaType(GenConstant.JAVA_TYPE_BIG_DECIMAL);
+        } else if (containsType(GenConstant.FIELD_TYPE_DOUBLE, fieldType)) {
+            tableField.setJavaType(GenConstant.JAVA_TYPE_DOUBLE);
+        } else if (containsType(GenConstant.FIELD_TYPE_BOOLEAN, fieldType)) {
+            tableField.setJavaType(GenConstant.JAVA_TYPE_BOOLEAN);
+        } else if (containsType(GenConstant.FIELD_TYPE_JSON, fieldType)) {
+            tableField.setJavaType(GenConstant.JAVA_TYPE_JSON);
+        } else {
+            tableField.setJavaType(GenConstant.JAVA_TYPE_STRING);
         }
         Set<String> fieidSet = new HashSet<>();
         Collections.addAll(fieidSet, "id", "create_time", "create_by", "update_time", "update_by");
@@ -105,11 +107,13 @@ public class GenTableServiceImpl extends ServiceImpl<GenTableMapper, GenTable> i
     private void fillTableProperty(GenTable table) {
         String tbName = table.getTbName();
         int index = tbName.indexOf("_");
-        String moduleName = tbName.substring(0, index);
+        String moduleName = table.getDbName();
+        String bizPrefix = tbName.substring(0, index);
         String bizName = tbName.substring(index + 1);
         table.setClassName(convertToCamelCase(tbName));
         table.setPackageName(GenConstant.DEFAULT_PACKAGE_PREFIX + moduleName);
         table.setModuleName(moduleName);
+        table.setBizPrefix(bizPrefix);
         table.setBizName(convertToCamelCase(bizName));
         table.setAuthor(SecurityUtils.getUsername());
     }

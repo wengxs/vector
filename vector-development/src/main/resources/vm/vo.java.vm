@@ -1,8 +1,29 @@
 package ${packageName}.pojo.vo;
 
+#set($hasBigDecimal = false)
+#set($hasJson = false)
+#set($hasDate = false)
+#foreach ($tableField in $tableFields)
+#if($tableField.javaField != "id"
+&& $tableField.javaField != "createTime" && $tableField.javaField != "createBy"
+&& $tableField.javaField != "updateTime" && $tableField.javaField != "updateBy")
+#if($tableField.type == "date")#set($hasDate = true)#end
+#if($tableField.javaType == "BigDecimal")#set($hasBigDecimal = true)#end
+#if($tableField.javaType == "JSONArray")#set($hasJson = true)#end
+#end
+#end
+#if($hasJson)
+import com.alibaba.fastjson2.JSONArray;
+#end
+#if($hasDate)
+import com.fasterxml.jackson.annotation.JsonFormat;
+#end
 import lombok.Data;
 
 import java.util.Date;
+#if($hasBigDecimal)
+import java.math.BigDecimal;
+#end
 
 /**
  * ${tableComment} VO
@@ -23,6 +44,9 @@ public class ${ClassName}VO {
 && $tableField.javaField != "updateTime" && $tableField.javaField != "updateBy")
 
     /** ${tableField.comment} */
+#if($tableField.javaType == "Date" && $tableField.type == "date")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+#end
     private ${tableField.javaType} ${tableField.javaField};
 #end
 #end

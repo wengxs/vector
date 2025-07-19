@@ -34,10 +34,12 @@ public class VelocityUtil {
         velocityContext.put("className", StringUtils.uncapitalize(table.getClassName()));
         velocityContext.put("packageName", table.getPackageName());
         velocityContext.put("moduleName", table.getModuleName());
+        velocityContext.put("BizPrefix", StringUtils.capitalize(table.getBizPrefix()));
+        velocityContext.put("bizPrefix", table.getBizPrefix());
         velocityContext.put("BizName", table.getBizName());
         velocityContext.put("bizName", StringUtils.uncapitalize(table.getBizName()));
         velocityContext.put("permissionPrefix",
-                String.format("%s:%s:", table.getModuleName(), StringUtils.uncapitalize(table.getBizName())));
+                String.format("%s:%s:", table.getBizPrefix(), StringUtils.uncapitalize(table.getBizName())));
         velocityContext.put("tableFields", tableFields);
         velocityContext.put("pkJavaType", pkJavaType);
         velocityContext.put("author", table.getAuthor());
@@ -49,16 +51,17 @@ public class VelocityUtil {
     public static List<String> getTemplateList() {
         List<String> templates = new ArrayList<>();
         templates.add("vm/entity.java.vm");
+        templates.add("vm/form.java.vm");
         templates.add("vm/query.java.vm");
         templates.add("vm/vo.java.vm");
-        templates.add("vm/dto.java.vm");
-        templates.add("vm/mapper.xml.vm");
         templates.add("vm/mapper.java.vm");
+        templates.add("vm/mapper.xml.vm");
         templates.add("vm/service.java.vm");
         templates.add("vm/serviceImpl.java.vm");
         templates.add("vm/controller.java.vm");
-        templates.add("vm/types.ts.vm");
-        templates.add("vm/index.ts.vm");
+//        templates.add("vm/types.ts.vm");
+//        templates.add("vm/index.ts.vm");
+        templates.add("vm/api.ts.vm");
         templates.add("vm/add-or-update.vue.vm");
         templates.add("vm/index.vue.vm");
         return templates;

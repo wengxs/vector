@@ -52,8 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { get${BizName}, add${BizName}, update${BizName} } from "@/api/${moduleName}/${bizName}";
-import { ${BizName}Form } from "@/api/${moduleName}/${bizName}/types";
+import ${BizName}Api, { ${BizName}Form } from "@/api/${moduleName}/${bizName}.api";
 
 defineComponent({
   name: "AddOrUpdate",
@@ -92,7 +91,7 @@ const open = (id?: number) => {
   visible.value = true;
   nextTick(() => {
     if (id) {
-      get${BizName}(id).then(({ data }) => {
+      ${BizName}Api.get${BizName}(id).then(({ data }) => {
         Object.assign(formData, { ...data });
       });
     }
@@ -113,13 +112,13 @@ const handleSubmit = useThrottleFn(() => {
   formRef.value.validate((valid: any) => {
     if (valid) {
       if (formData.id) {
-        update${BizName}(formData).then(() => {
+        ${BizName}Api.update${BizName}(formData).then(() => {
           ElMessage.success("操作成功");
           emit("submitted");
           visible.value = false;
         });
       } else {
-        add${BizName}(formData).then(() => {
+        ${BizName}Api.add${BizName}(formData).then(() => {
           ElMessage.success("操作成功");
           emit("submitted");
           visible.value = false;

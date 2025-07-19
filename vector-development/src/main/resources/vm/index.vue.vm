@@ -39,30 +39,36 @@
 #end
 #end
         <el-form-item>
-          <el-button type="primary" @click="handleQuery"><i-ep-search />搜索</el-button>
-          <el-button @click="resetQuery"><i-ep-refresh />重置</el-button>
+          <el-button type="primary" @click="handleQuery" :icon="Search">搜索</el-button>
+          <el-button @click="resetQuery" :icon="Refresh">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
 
     <el-card shadow="never" class="table-container">
       <template #header>
-        <el-button v-permission="['${permissionPrefix}add']" type="success" @click="handleAdd"
-          ><i-ep-plus />新增</el-button
+        <el-button
+          v-permission="['${permissionPrefix}add']"
+          type="success"
+          @click="handleAdd"
+          :icon="Plus"
+        >新增</el-button
         >
         <el-button
           v-permission="['${permissionPrefix}edit']"
           type="warning"
           :disabled="single"
           @click="handleEdit(selectedIds[0])"
-          ><i-ep-edit />编辑</el-button
+          :icon="Edit"
+        >编辑</el-button
         >
         <el-button
           v-permission="['${permissionPrefix}del']"
           type="danger"
           :disabled="multiple"
           @click="handleDel()"
-          ><i-ep-delete />删除</el-button
+          :icon="Delete"
+        >删除</el-button
         >
       </template>
 
@@ -90,7 +96,7 @@
               size="small"
               link
               @click="handleEdit(scope.row.id)"
-              >编辑</el-button
+            >编辑</el-button
             >
             <el-button
               v-permission="['${permissionPrefix}del']"
@@ -98,7 +104,7 @@
               size="small"
               link
               @click="handleDel(scope.row.id)"
-              >删除</el-button
+            >删除</el-button
             >
           </template>
         </el-table-column>
@@ -118,9 +124,9 @@
 </template>
 
 <script setup lang="ts">
-import { list${BizName}, del${BizName} } from "@/api/${moduleName}/${bizName}";
-import { ${BizName}Query, ${BizName}VO } from "@/api/${moduleName}/${bizName}/types";
+import ${BizName}Api, { ${BizName}Query, ${BizName}VO } from "@/api/${moduleName}/${bizName}.api";
 import AddOrUpdate from "./add-or-update.vue";
+import { Search, Refresh, Plus, Edit, Delete } from "@element-plus/icons-vue";
 
 defineOptions({
   name: "${ClassName}",
@@ -152,7 +158,7 @@ watch(dateTimeRange, (newVal) => {
 /** 查询 */
 function handleQuery() {
   loading.value = true;
-  list${BizName}(queryParams)
+  ${BizName}Api.list${BizName}(queryParams)
     .then(({ data }) => {
       list.value = data.list;
       total.value = data.total;
@@ -201,7 +207,7 @@ function handleDel(id?: number) {
     cancelButtonText: "取消",
     type: "warning",
   }).then(() => {
-    del${BizName}(ids).then(() => {
+    ${BizName}Api.del${BizName}(ids).then(() => {
       ElMessage.success("操作成功");
       resetQuery();
     });
