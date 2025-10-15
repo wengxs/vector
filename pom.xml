@@ -221,7 +221,23 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <spring.profiles.active>dev</spring.profiles.active>
+                <spring.cloud.nacos.namespace></spring.cloud.nacos.namespace>
+            </properties>
+        </profile>
+    </profiles>
 
     <repositories>
         <repository>
